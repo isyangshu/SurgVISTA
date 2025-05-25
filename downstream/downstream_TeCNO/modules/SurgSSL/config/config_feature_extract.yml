@@ -1,0 +1,19 @@
+module : SurgSSL.feature_extraction.FeatureExtraction
+model : SurgSSL.SurgSSL
+data_root : /home/syangcw
+dataset : cataract21_feature_extract.CATARACT21FeatureExtract
+out_features : 11
+input_height : 224
+input_width : 224
+batch_size : 1000
+learning_rate : 0.0005
+dataset_mode : vid
+early_stopping_metric : val_acc_phase
+save_top_k : 1
+max_epochs : 30 # 30
+min_epochs : 20 # 20
+num_sanity_val_steps : 4
+test_extract : True
+#accelerator: ddp_spawn
+num_workers : 12
+gpus : 0 # all available -1

@@ -1,0 +1,34 @@
+CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch \
+--nproc_per_node=2 \
+--master_port 12332 \
+downstream_phase/run_phase_training.py \
+--batch_size 8 \
+--epochs 50 \
+--save_ckpt_freq 10 \
+--model  unified_base_st \
+--pretrained_data settingE \
+--pretrained_method videomae-st \
+--mixup 0.8 \
+--cutmix 1.0 \
+--smoothing 0.1 \
+--lr 5e-4 \
+--layer_decay 0.75 \
+--warmup_epochs 5 \
+--data_path /project/medimgfmod/syangcw/downstream/cholec80 \
+--eval_data_path /project/medimgfmod/syangcw/downstream/cholec80 \
+--nb_classes 7 \
+--data_strategy online \
+--output_mode key_frame \
+--num_frames 16 \
+--sampling_rate 4 \
+--eval \
+--finetune /project/mmendoscope/Natural_Comparison/Cholec75/unified_base_st_settingE_videomae-st_Cholec80_0.0005_0.75_online_key_frame_frame16_Fixed_Stride_4/checkpoint-best/mp_rank_00_model_states.pt \
+--data_set Cholec80 \
+--data_fps 1fps \
+--output_dir /project/mmendoscope/Natural_Comparison/Cholec75 \
+--log_dir /project/mmendoscope/Natural_Comparison/Cholec75 \
+--num_workers 16 \
+--dist_eval \
+--enable_deepspeed \
+--no_auto_resume \
+--cut_black

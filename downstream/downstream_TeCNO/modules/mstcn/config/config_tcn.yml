@@ -1,0 +1,29 @@
+module : mstcn.tecno.TeCNO
+model : mstcn.MultiStageModel
+dataset : cataract.CATARACT
+out_features : 19
+num_workers : 3
+batch_size : 1
+log_every_n_steps : 1
+mstcn_causal_conv : True
+learning_rate : 0.0001
+min_epochs : 12
+max_epochs : 100
+mstcn_layers : 9
+mstcn_f_maps : 64
+mstcn_f_dim: 2048
+mstcn_stages : 2
+early_stopping_metric : val_acc_video
+save_top_k : 1
+gpus : ['1']
+data_root : /home/syangcw/SurgSSL/downstream/downstream_TeCNO/logs/CATARACT/250109-061955_FeatureExtraction_CATARACTFeatureExtract_GSViT_GSViT/cataract_pickle_export
+num_sanity_val_steps: 1
+# Cataract-21 0.0005 9 64 2048 2 12 50
+# Cataract-101 0.0005 9 64 2048 2 12 50
+# Cholec80 0.00007 8 32 2048 2 12 50
+# M2CAI16 0.0001 8 32 2048 2 12 50
+# CATARACT 0.00015 9 64 2048 2 12 100 (ResNet50,SelfSupSurg)
+# CATARACT 0.0001 9 64 2048 2 12 100 (EndoViT)
+# CATARACT 0.00007 9 64 2048 2 12 100 (EndoSSL)
+# CATARACT 0.0001 9 64 2048 2 12 100 (GSViT)
+

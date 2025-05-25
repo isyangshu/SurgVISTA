@@ -1,0 +1,30 @@
+CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch \
+--nproc_per_node=2 \
+--master_port 12330 \
+downstream_csv/run_csv_training.py \
+--batch_size 32 \
+--epochs 50 \
+--save_ckpt_freq 10 \
+--model  unified_base_st \
+--pretrained_data k400 \
+--pretrained_method mvd \
+--eval \
+--finetune /scratch/syangcw/SurgSSL/Endoscapes/unified_base_st_k400_mvd_Endoscapes_5e-05_0.75_frame8/checkpoint-best/mp_rank_00_model_states.pt \
+--mixup 0.8 \
+--cutmix 1.0 \
+--smoothing 0.1 \
+--lr 5e-5 \
+--layer_decay 0.75 \
+--warmup_epochs 5 \
+--data_path /scratch/syangcw/Endoscapes \
+--eval_data_path /scratch/syangcw/Endoscapes \
+--nb_classes 4 \
+--num_frames 8 \
+--sampling_rate 4 \
+--data_set Endoscapes \
+--output_dir /scratch/syangcw/SurgSSL/Endoscapes \
+--log_dir /scratch/syangcw/SurgSSL/Endoscapes \
+--num_workers 9 \
+--dist_eval \
+--enable_deepspeed \
+--no_auto_resume
