@@ -3,7 +3,6 @@
 param1_list=("imagenet1k" "imagenet1k" "imagenet1k") 
 param2_list=("supervised" "mae" "dino")
 param3_list=("unified_base_2D" "unified_base_2D" "unified_base_2D")
-# param3_list=("unified_base_image" "unified_base_image" "unified_base_image")
 
 for i in "${!param1_list[@]}"; do
     CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch \

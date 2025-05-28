@@ -815,7 +815,6 @@ def unified_base_2D(pretrained=False, pretrain_path=None, **kwargs):
 
     return model
 
-
 if __name__ == "__main__":
     import utils
     from args import get_args_finetuning

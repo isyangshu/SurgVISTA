@@ -490,7 +490,7 @@ def main(args, ds_init):
         )
     dataset_test, _ = build_dataset(
         is_train=False, test_mode=True, fps=args.data_fps, args=args
-    )  # Cholec80后40个数据集用于测试：2452890
+    )
 
     print("Train Dataset Length: ", len(dataset_train))
     print("Val Dataset Length: ", len(dataset_val))

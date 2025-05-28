@@ -24,11 +24,7 @@ def trunc_normal_(tensor, mean=0.0, std=1.0):
 __all__ = [
     "pretrain_videomae_small_patch16_224",
     "pretrain_videomae_base_patch16_224",
-    "pretrain_videomae_base_patch16_224_k400", # load k400 for initialization
-    "pretrain_videomae_base_patch16_224_hybrid",  # load hybrid for initialization
     "pretrain_videomae_large_patch16_224",
-    "pretrain_videomae_large_patch16_224_k400",
-    "pretrain_videomae_large_patch16_224_hybrid",
     "pretrain_videomae_huge_patch16_224",
 ]
 
@@ -431,60 +427,6 @@ def pretrain_videomae_base_patch16_224(pretrained=False, **kwargs):
 
 
 @register_model
-def pretrain_videomae_base_patch16_224_k400(pretrained=True, **kwargs):
-    model = PretrainVisionTransformer(
-        img_size=224,
-        patch_size=16,
-        encoder_embed_dim=768,
-        encoder_depth=12,
-        encoder_num_heads=12,
-        encoder_num_classes=0,
-        decoder_num_classes=1536,
-        decoder_embed_dim=384,
-        decoder_num_heads=6,
-        mlp_ratio=4,
-        qkv_bias=True,
-        norm_layer=partial(nn.LayerNorm, eps=1e-6),
-        **kwargs
-    )
-    model.default_cfg = _cfg()
-    if pretrained:
-        print("load pretrained parameters on K400")
-        ckpt_path = (
-            "/home/syangcw/SurgSSL/pretrain_params/videomae_base_k400_1600e.pth"
-        )
-        checkpoint = torch.load(ckpt_path, map_location="cpu")
-        utils.load_state_dict(model, checkpoint["model"])
-    return model
-
-
-@register_model
-def pretrain_videomae_base_patch16_224_hybrid(pretrained=True, **kwargs):
-    model = PretrainVisionTransformer(
-        img_size=224,
-        patch_size=16,
-        encoder_embed_dim=768,
-        encoder_depth=12,
-        encoder_num_heads=12,
-        encoder_num_classes=0,
-        decoder_num_classes=1536,
-        decoder_embed_dim=384,
-        decoder_num_heads=6,
-        mlp_ratio=4,
-        qkv_bias=True,
-        norm_layer=partial(nn.LayerNorm, eps=1e-6),
-        **kwargs
-    )
-    model.default_cfg = _cfg()
-    if pretrained:
-        print("load pretrained parameters on Hybrid")
-        ckpt_path = "/home/syangcw/SurgSSL/pretrain_params/internvideo_base_hybrid_800e.pth"
-        checkpoint = torch.load(ckpt_path, map_location="cpu")
-        utils.load_state_dict(model, checkpoint["model"])
-    return model
-
-
-@register_model
 def pretrain_videomae_large_patch16_224(pretrained=False, **kwargs):
     model = PretrainVisionTransformer(
         img_size=224,
@@ -505,62 +447,6 @@ def pretrain_videomae_large_patch16_224(pretrained=False, **kwargs):
     if pretrained:
         checkpoint = torch.load(kwargs["init_ckpt"], map_location="cpu")
         model.load_state_dict(checkpoint["model"])
-    return model
-
-
-@register_model
-def pretrain_videomae_large_patch16_224_k400(pretrained=True, **kwargs):
-    model = PretrainVisionTransformer(
-        img_size=224,
-        patch_size=16,
-        encoder_embed_dim=1024,
-        encoder_depth=24,
-        encoder_num_heads=16,
-        encoder_num_classes=0,
-        decoder_num_classes=1536,
-        decoder_embed_dim=512,
-        decoder_num_heads=8,
-        mlp_ratio=4,
-        qkv_bias=True,
-        norm_layer=partial(nn.LayerNorm, eps=1e-6),
-        **kwargs
-    )
-    model.default_cfg = _cfg()
-    if pretrained:
-        print("load pretrained parameters on K400")
-        ckpt_path = (
-            "/home/syangcw/SurgSSL/pretrain_params/videomae_pretrain_vit_large_k400.pth"
-        )
-        checkpoint = torch.load(ckpt_path, map_location="cpu")
-        utils.load_state_dict(model, checkpoint["model"])
-    return model
-
-
-@register_model
-def pretrain_videomae_large_patch16_224_hybrid(pretrained=True, **kwargs):
-    model = PretrainVisionTransformer(
-        img_size=224,
-        patch_size=16,
-        encoder_embed_dim=1024,
-        encoder_depth=24,
-        encoder_num_heads=16,
-        encoder_num_classes=0,
-        decoder_num_classes=1536,
-        decoder_embed_dim=512,
-        decoder_num_heads=8,
-        mlp_ratio=4,
-        qkv_bias=True,
-        norm_layer=partial(nn.LayerNorm, eps=1e-6),
-        **kwargs
-    )
-    model.default_cfg = _cfg()
-    if pretrained:
-        print("load pretrained parameters on Hybrid")
-        ckpt_path = (
-            "/home/syangcw/SurgSSL/pretrain_params/videomae_pretrain_vit_large_hybrid.pth"
-        )
-        checkpoint = torch.load(ckpt_path, map_location="cpu")
-        utils.load_state_dict(model, checkpoint["model"])
     return model
 
 
@@ -591,7 +477,7 @@ def pretrain_videomae_huge_patch16_224(pretrained=False, **kwargs):
 from datasets.transforms.masking_generator import TubeMaskingGenerator
 
 if __name__ == "__main__":
-    model = pretrain_videomae_large_patch16_224_k400()
+    model = pretrain_videomae_large_patch16_224()
     # input = torch.randn((2, 3, 16, 224, 224)).cuda()
 
     # 使用逻辑条件将超过 0.1 的元素设置为 1，其余为 0
