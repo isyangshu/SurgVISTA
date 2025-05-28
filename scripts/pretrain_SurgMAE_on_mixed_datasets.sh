@@ -6,7 +6,7 @@ DATA_ROOT="/scratch/mmendoscope/pretraining/"
 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python -m torch.distributed.launch \
 --nproc_per_node=8 \
 --master_port 12322 \
-pretrain_SurgMAE/run_videomae_pretraining.py \
+pretrain_SurgVISTA/run_videomae_pretraining.py \
 --data_root ${DATA_ROOT} \
 --model pretrain_videomae_base_patch16_224 \
 --log_dir ${OUTPUT_DIR} \

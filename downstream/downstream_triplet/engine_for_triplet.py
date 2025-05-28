@@ -7,7 +7,7 @@ from typing import Iterable, Optional
 import torch
 from timm.utils import ModelEma
 import utils
-from downstream_triplet.ivtmetrics import Recognition
+from downstream.ivtmetrics import Recognition
 
 def train_class_batch(model, samples, target, criterion):
     outputs = model(samples)
@@ -331,8 +331,7 @@ def compute_results(dict_feat, dict_label, eval_path):
     dict_feat = divided_videos(dict_feat)
     dict_label = divided_videos(dict_label)
     activation  = torch.nn.Sigmoid()
-    # mAP = Recognition(100)
-    mAP = Recognition(89)
+    mAP = Recognition(100)
     mAP.reset_global()
     for video_id in dict_feat.keys():
         feats = dict_feat[video_id]
@@ -369,8 +368,7 @@ def compute_results_val(dict_feat, dict_label, eval_path):
     dict_feat = divided_videos(dict_feat)
     dict_label = divided_videos(dict_label)
     activation  = torch.nn.Sigmoid()
-    # mAP = Recognition(100)
-    mAP = Recognition(89)
+    mAP = Recognition(100)
     mAP.reset_global()
     for video_id in dict_feat.keys():
         feats = dict_feat[video_id]

@@ -7,7 +7,7 @@ import math
 import random
 
 def main():
-    ROOT_DIR = "/scratch/mmendoscope/downstream/Cataract101/"
+    ROOT_DIR = "path/to/your/dataset"  # Change this to your dataset path
     VIDEO_NAMES = os.listdir(os.path.join(ROOT_DIR, 'frames'))
     VIDEO_NAMES = sorted([x for x in VIDEO_NAMES if "DS" not in x])
 
@@ -16,15 +16,11 @@ def main():
     VAL_FRAME_NUMBERS = 0
     TEST_FRAME_NUMBERS = 0
     numbers = list(range(1, 102))
-
-    # 从 1-101 中随机抽取 60 个数字
     TRAIN_ID = random.sample(numbers, 60)
 
-    # 从剩余的数字中随机抽取 13 个数字
     remaining_numbers = [num for num in numbers if num not in TRAIN_ID]
     VAL_ID = random.sample(remaining_numbers, 13)
 
-    # 保留最后剩下的 28 个数字
     TEST_ID = [num for num in numbers if num not in TRAIN_ID and num not in VAL_ID]
 
     TRAIN_NUMBERS = sorted([VIDEO_NUMS[i-1] for i in TRAIN_ID])
@@ -95,12 +91,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-    # file = open('/scratch/mmendoscope/downstream/Cataract101/labels/test/1fpstest.pickle', 'rb')
-    # info = pickle.load(file)
-    # total_num = 0
-    # print(info.keys())
-    # map_key = dict()
-    # for ind, i in enumerate(info.keys()):
-    #     map_key[i] = ind+10
-    # print(map_key)

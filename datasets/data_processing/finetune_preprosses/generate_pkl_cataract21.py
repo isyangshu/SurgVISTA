@@ -8,7 +8,7 @@ import random
 import csv
 
 def main():
-    ROOT_DIR = "/home/syangcw/Cataract21"
+    ROOT_DIR = "path/to/your/dataset"  # Change this to your dataset path
     VIDEO_NAMES = os.listdir(os.path.join(ROOT_DIR, 'frames'))
     VIDEO_NAMES = sorted([x for x in VIDEO_NAMES if "DS" not in x])
 
@@ -102,15 +102,4 @@ def main():
     print('TEST Frams', TEST_FRAME_NUMBERS, unique_id_test) 
 
 if __name__ == '__main__':
-    # main()
-
-    file = open('/home/syangcw/Cataract21/labels_pkl_/test/1fpstest.pickle', 'rb')
-    info = pickle.load(file)
-    total_num = 0
-    print(info.keys())
-    print(len(info.keys())) 
-    map_key = dict()
-    count = 0
-    for ind, i in enumerate(info.keys()):
-        count += len(info[i])
-    print(count)
+    main()

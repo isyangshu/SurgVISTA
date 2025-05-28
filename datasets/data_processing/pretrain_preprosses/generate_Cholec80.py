@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 
 def main():
-    ROOT_DIR = "/project/mmendoscope/surgical_video/Cholec80/"
+    ROOT_DIR = "/data/to/your/Cholec80/"
     VIDEO_NAMES = os.listdir(os.path.join(ROOT_DIR, "frames/train"))
     VIDEO_NAMES = sorted([x for x in VIDEO_NAMES if "video" in x])
     PRETRAIN_NUMBERS = np.arange(1, 41).tolist()
@@ -51,22 +51,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
-
-    # 读取pkl文件,rb是读取二进制文件，而r是读取文本文件
-
-    file = open('/project/mmendoscope/surgical_video/Cholec80/labels/pretrain.pickle', 'rb')
-    info = pickle.load(file)
-    print(info.keys())
-    video_name = list()
-    # total_num = 0
-    for index in info.keys():
-        num = len(info[index])
-    #     total_num += num
-        info_final = info[index][-1]
-        video_name.append(info_final['video_name'])
-    #     if info_final['frame_id'] != info_final['frames']-1:
-    #         print(info_final)
-    #         print('!!!!!!!!!!!!!!!!!')
-    #     total_num += num
-    print(video_name)
+    main()

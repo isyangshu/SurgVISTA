@@ -2,13 +2,13 @@ import csv
 import os
 from collections import defaultdict
 import cv2
-csv_phase = "/Users/yangshu/Downloads/cataract-101/annotations.csv"
-save_txt_folder = "/Users/yangshu/Downloads/cataract-101/phase_annotations"
-# 读取CSV文件
+csv_phase = "/path/to/your/cataract-101/annotations.csv"
+save_txt_folder = "/path/to/your/cataract-101/phase_annotations"
+
 videos = defaultdict(list)
 with open(csv_phase, "r") as csvfile:
     reader = csv.reader(csvfile)
-    next(reader)  # 跳过表头行
+    next(reader)
     for row in reader:
         video_id, frame_number, phase_id = row[0].split(";")
         # 生成逐帧标注的txt文件名

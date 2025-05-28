@@ -8,7 +8,7 @@ import math
 from random import shuffle
 
 def main():
-    ROOT_DIR = "/project/medimgfmod/Video/ESD57"
+    ROOT_DIR = "path/to/your/dataset"  # Change this to your dataset path
     VIDEO_NAMES = os.listdir(os.path.join(ROOT_DIR, 'frames'))
     VIDEO_NAMES = sorted([x for x in VIDEO_NAMES])
     
@@ -109,45 +109,4 @@ def main():
     print('TEST Frams', TEST_FRAME_NUMBERS, unique_id_test) 
 
 if __name__ == '__main__':
-    # main()
-
-    # 读取pkl文件,rb是读取二进制文件，而r是读取文本文件
-
-    file = open('/project/medimgfmod/Video/ESD57/labels/val/1fpsval.pickle', 'rb')
-    info = pickle.load(file)
-    total_num = 0
-    print(len(info.keys()))
-    for index in info.keys():
-        # print(info[index][0])
-        # print(info[index][-1])
-        num = len(info[index])
-        total_num += num
-    print(total_num)
-    
-    # file = open('/Users/yangshu/Documents/SurgVideoMAE/data/cholec80/labels/train/1fpstrain.pickle', 'rb')
-    # info = pickle.load(file)
-    # total_num = 0
-    # for index in info.keys():
-    #     num = len(info[index])
-    #     info_final = info[index][-1]
-    #     if info_final['frame_id'] != info_final['frames']:
-    #         print(info_final)
-    #         print('!!!!!!!!!!!!!!!!!')
-    #     total_num += num
-    # print(total_num)
-    # print(len(info['video32']))
-    # print(info['video32'][0])
-    # print(info['video32'][-2])
-    # print(info['video32'][-1])
-
-    # file_a = open('/Users/yangshu/Documents/SurgVideoMAE/data/cholec80/labels_cross/val/5fps.pickle', 'rb')
-    # info_a = pickle.load(file_a)
-    # file_b = open('/Users/yangshu/Documents/SurgVideoMAE/data/cholec80/labels/val/5fpsval.pickle', 'rb')
-    # info_b = pickle.load(file_b)
-
-    # for index in tqdm(info_a.keys()):
-    #     for a_ in info_a[index]:
-    #         for b_ in info_b[index]:
-    #             if a_['Frame_id'] == b_['original_frame_id']:
-    #                 if a_['Phase_gt'] != b_['phase_gt'] and a_['Tool_gt'] != b_['tool_gt']:
-    #                     print('======')
+    main()

@@ -10,7 +10,7 @@ import re
 from collections import defaultdict
 
 def main():
-    ROOT_DIR = "/scratch/syangcw/Endoscapes/"
+    ROOT_DIR = "path/to/your/dataset"  # Change this to your dataset path
     TRAIN_FRAME_NUMBERS = 0
     VAL_FRAME_NUMBERS = 0
     TEST_FRAME_NUMBERS = 0
@@ -116,58 +116,26 @@ def main():
             TEST_FRAME_NUMBERS += len(frames)
             unique_id_test = unique_id
 
-    # train_save_dir = os.path.join(ROOT_DIR, 'labels_pkl', 'train')
-    # os.makedirs(train_save_dir, exist_ok=True)
-    # with open(os.path.join(train_save_dir, '1fpstrain.pickle'), 'wb') as file:
-    #     pickle.dump(train_pkl, file)
+    train_save_dir = os.path.join(ROOT_DIR, 'labels_pkl', 'train')
+    os.makedirs(train_save_dir, exist_ok=True)
+    with open(os.path.join(train_save_dir, '1fpstrain.pickle'), 'wb') as file:
+        pickle.dump(train_pkl, file)
 
-    # val_save_dir = os.path.join(ROOT_DIR, 'labels_pkl', 'val')
-    # os.makedirs(val_save_dir, exist_ok=True)
-    # with open(os.path.join(val_save_dir, '1fpsval.pickle'), 'wb') as file:
-    #     pickle.dump(val_pkl, file)
+    val_save_dir = os.path.join(ROOT_DIR, 'labels_pkl', 'val')
+    os.makedirs(val_save_dir, exist_ok=True)
+    with open(os.path.join(val_save_dir, '1fpsval.pickle'), 'wb') as file:
+        pickle.dump(val_pkl, file)
 
-    # test_save_dir = os.path.join(ROOT_DIR, 'labels_pkl', 'test')
-    # os.makedirs(test_save_dir, exist_ok=True)
-    # with open(os.path.join(test_save_dir, '1fpstest.pickle'), 'wb') as file:
-    #     pickle.dump(test_pkl, file)
+    test_save_dir = os.path.join(ROOT_DIR, 'labels_pkl', 'test')
+    os.makedirs(test_save_dir, exist_ok=True)
+    with open(os.path.join(test_save_dir, '1fpstest.pickle'), 'wb') as file:
+        pickle.dump(test_pkl, file)
 
-    # print('TRAIN Frams', TRAIN_FRAME_NUMBERS, unique_id_train)
-    # print('VAL Frams', VAL_FRAME_NUMBERS, unique_id_val)
-    # print('TEST Frams', TEST_FRAME_NUMBERS, unique_id_test) 
-    # print(len(labels_count))
-    # print('Labels Count', pd.Series(labels_count).value_counts())
+    print('TRAIN Frams', TRAIN_FRAME_NUMBERS, unique_id_train)
+    print('VAL Frams', VAL_FRAME_NUMBERS, unique_id_val)
+    print('TEST Frams', TEST_FRAME_NUMBERS, unique_id_test) 
+    print(len(labels_count))
+    print('Labels Count', pd.Series(labels_count).value_counts())
 
 if __name__ == '__main__':
-    # main()
-
-    # 读取pkl文件,rb是读取二进制文件，而r是读取文本文件
-
-    file = open('/scratch/syangcw/Endoscapes/labels_pkl/train/1fpstrain.pickle', 'rb')
-    info = pickle.load(file)
-    print(len(info.keys()))
-    count_train = []
-    for key in info.keys():
-        for length in info[key]:
-            count_train.append(length['csv_gt'])
-    count_train_series = pd.Series(count_train)
-    print(count_train_series.value_counts())
-
-    file = open('/scratch/syangcw/Endoscapes/labels_pkl/val/1fpsval.pickle', 'rb')
-    info = pickle.load(file)
-    print(len(info.keys()))
-    count_val = []
-    for key in info.keys():
-        for length in info[key]:
-            count_val.append(length['csv_gt'])
-    count_val_series = pd.Series(count_val)
-    print(count_val_series.value_counts())
-
-    file = open('/scratch/syangcw/Endoscapes/labels_pkl/test/1fpstest.pickle', 'rb')
-    info = pickle.load(file)
-    print(len(info.keys()))
-    count_test = []
-    for key in info.keys():
-        for length in info[key]:
-            count_test.append(length['csv_gt'])
-    count_test_series = pd.Series(count_test)
-    print(count_test_series.value_counts())
+    main()

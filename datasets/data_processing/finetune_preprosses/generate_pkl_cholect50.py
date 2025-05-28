@@ -101,10 +101,10 @@ switcher = {
 
 
 def main():
-    ROOT_DIR = "/Users/yangshu/Downloads/CholecT50"
+    ROOT_DIR = "path/to/your/dataset"  # Change this to your dataset path
     VIDEO_NAMES = os.listdir(os.path.join(ROOT_DIR, "videos"))
     VIDEO_NAMES = sorted([x for x in VIDEO_NAMES if "DS" not in x])
-    dataset_split = "cholect50"
+    dataset_split = "cholect50-challenge"
     data_split = switcher.get(dataset_split)
 
     TRAIN_NUMBERS = data_split["train"]
@@ -303,18 +303,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    # 读取pkl文件,rb是读取二进制文件，而r是读取文本文件
-    # file = open('/Users/yangshu/Downloads/CholecT50/labels_pkl/train/1fpstrain.pickle', 'rb')
-    # info = pickle.load(file)
-    # total_num = 0
-    # for index in info.keys():
-    #     num = len(info[index])
-    #     info_final = info[index][-1]
-    #     print(info_final)
-    #     total_num += num
-    # print(total_num)
-    # print(len(info['VID01']))
-    # print(info['VID01'][0])
-    # print(info['VID01'][-2])
-    # print(info['VID01'][-1])

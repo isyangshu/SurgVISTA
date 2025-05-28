@@ -1,4 +1,3 @@
-# https://www.synapse.org/Synapse:syn21680292/wiki/601561
 import numpy as np
 import os
 import cv2
@@ -8,7 +7,7 @@ import pandas as pd
 import math
 
 def main():
-    ROOT_DIR = "/jhcnas4/syangcw/CATARACT/"
+    ROOT_DIR = "path/to/your/dataset"  # Change this to your dataset path
     VIDEO_NAMES = os.listdir(os.path.join(ROOT_DIR, 'videos/micro'))
     VIDEO_NAMES = sorted([x for x in VIDEO_NAMES if 'mp4' in x])
     TRAIN_NAME = ['train01.mp4', 'train02.mp4', 'train03.mp4', 'train04.mp4', 'train05.mp4', 'train06.mp4', 'train07.mp4', 'train08.mp4', 'train09.mp4', 'train10.mp4', 'train11.mp4', 'train12.mp4', 'train13.mp4', 'train14.mp4', 'train15.mp4', 'train16.mp4', 'train17.mp4', 'train18.mp4', 'train19.mp4', 'train20.mp4', 'train21.mp4', 'train22.mp4', 'train23.mp4', 'train24.mp4', 'train25.mp4']
@@ -136,40 +135,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-    # 读取pkl文件,rb是读取二进制文件，而r是读取文本文件
-
-    # file = open('/Users/yangshu/Documents/SurgVideoMAE/data/cholec80/labels/val/1fpsval.pickle', 'rb')
-    # info = pickle.load(file)
-    # total_num = 0
-    # for index in info.keys():
-    #     num = len(info[index])
-    #     total_num += num
-    
-    # file = open('/Users/yangshu/Documents/SurgVideoMAE/data/cholec80/labels/train/1fpstrain.pickle', 'rb')
-    # info = pickle.load(file)
-    # total_num = 0
-    # for index in info.keys():
-    #     num = len(info[index])
-    #     info_final = info[index][-1]
-    #     if info_final['frame_id'] != info_final['frames']:
-    #         print(info_final)
-    #         print('!!!!!!!!!!!!!!!!!')
-    #     total_num += num
-    # print(total_num)
-    # print(len(info['video32']))
-    # print(info['video32'][0])
-    # print(info['video32'][-2])
-    # print(info['video32'][-1])
-
-    # file_a = open('/Users/yangshu/Documents/SurgVideoMAE/data/cholec80/labels_cross/val/5fps.pickle', 'rb')
-    # info_a = pickle.load(file_a)
-    # file_b = open('/Users/yangshu/Documents/SurgVideoMAE/data/cholec80/labels/val/5fpsval.pickle', 'rb')
-    # info_b = pickle.load(file_b)
-
-    # for index in tqdm(info_a.keys()):
-    #     for a_ in info_a[index]:
-    #         for b_ in info_b[index]:
-    #             if a_['Frame_id'] == b_['original_frame_id']:
-    #                 if a_['Phase_gt'] != b_['phase_gt'] and a_['Tool_gt'] != b_['tool_gt']:
-    #                     print('======')

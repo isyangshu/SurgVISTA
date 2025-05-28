@@ -8,7 +8,7 @@ from datasets.datasets4finetuning.Cholec80_phase import PhaseDataset_Cholec80
 from datasets.datasets4finetuning.AutoLaparo_phase import PhaseDataset_AutoLaparo
 from datasets.datasets4finetuning.Cataract101_phase import PhaseDataset_Cataract101
 from datasets.datasets4finetuning.M2CAI16_phase import PhaseDataset_M2CAI16
-from datasets.datasets4finetuning.CATARACT_phase import PhaseDataset_CATARACT
+from datasets.datasets4finetuning.CATARACTS_phase import PhaseDataset_CATARACTS
 from datasets.datasets4finetuning.Cataract21_phase import PhaseDataset_Cataract21
 from datasets.datasets4finetuning.PmLR50_phase import PhaseDataset_PmLR50
 from datasets.datasets4finetuning.ESD57_phase import PhaseDataset_ESD57
@@ -35,7 +35,8 @@ def build_dataset(is_train, test_mode, fps, args):
             )
         else:
             mode = "val"
-            anno_path = os.path.join(args.data_path, "labels", mode, fps + "val.pickle")
+            anno_path = os.path.join(args.data_path, "labels", "test", fps + "test_35.pickle")
+
         dataset = PhaseDataset_Cholec80(
             anno_path=anno_path,
             data_path=args.data_path,
@@ -70,6 +71,7 @@ def build_dataset(is_train, test_mode, fps, args):
         else:
             mode = "val"
             anno_path = os.path.join(args.data_path, "labels_pkl", mode, fps + "val.pickle")
+
         dataset = PhaseDataset_AutoLaparo(
             anno_path=anno_path,
             data_path=args.data_path,
@@ -106,6 +108,7 @@ def build_dataset(is_train, test_mode, fps, args):
         else:
             mode = "val"
             anno_path = os.path.join(args.data_path, "labels_pkl", mode, fps + "val_" + fold + ".pickle")
+
         dataset = PhaseDataset_Cataract101(
             anno_path=anno_path,
             data_path=args.data_path,
@@ -159,7 +162,7 @@ def build_dataset(is_train, test_mode, fps, args):
         )
         nb_classes = 8
 
-    elif args.data_set == "CATARACT":
+    elif args.data_set == "CATARACTS":
         mode = None
         anno_path = None
         if is_train is True:
@@ -176,7 +179,7 @@ def build_dataset(is_train, test_mode, fps, args):
             mode = "val"
             anno_path = os.path.join(args.data_path, "labels", mode, fps + "val.pickle")
 
-        dataset = PhaseDataset_CATARACT(
+        dataset = PhaseDataset_CATARACTS(
             anno_path=anno_path,
             data_path=args.data_path,
             mode=mode,

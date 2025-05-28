@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 
 def main():
-    ROOT_DIR = "/project/mmendoscope/surgical_video/CholecT50"
+    ROOT_DIR = "/data/to/your/CholecT50"
     VIDEO_NAMES = os.listdir(os.path.join(ROOT_DIR, "frames"))
     VIDEO_NAMES = sorted([x for x in VIDEO_NAMES if "VID" in x])
     PRETRAIN_COUNT = 0
@@ -47,35 +47,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
-
-    # 读取pkl文件,rb是读取二进制文件，而r是读取文本文件
-
-    train_file = open('/scratch/mmendoscope/downstream/CholecT50/labels_pkl_challenge/train/1fpstrain.pickle', 'rb')
-    train_info = pickle.load(train_file)
-    print(train_info.keys())
-    print(len(train_info.keys()))
-
-    val_file = open('/scratch/mmendoscope/downstream/CholecT50/labels_pkl_challenge/val/1fpsval.pickle', 'rb')
-    val_info = pickle.load(val_file)
-    print(val_info.keys())
-    print(len(val_info.keys()))
-
-    test_file = open('/scratch/mmendoscope/downstream/CholecT50/labels_pkl_challenge/test/1fpstest.pickle', 'rb')
-    test_info = pickle.load(test_file)
-    print(test_info.keys())
-    print(len(test_info.keys()))
-
-    # train_path = '/scratch/mmendoscope/downstream/CholecT50/labels_pkl_challenge/train/1fpstrain.pickle'
-    # val_path = "/scratch/mmendoscope/downstream/CholecT50/labels_pkl_challenge/val/1fpsval.pickle"
-
-    # combined_train_info = {**train_info, **val_info}
-
-    # with open(train_path, 'wb') as train_file:
-    #     pickle.dump(combined_train_info, train_file)
-
-    # with open(val_path, 'wb') as val_file:
-    #     pickle.dump(test_info, val_file)
-
-    # print(f'Combined train info saved to {train_path}')
-    # print(f'Test info saved to {val_path}')
+    main()

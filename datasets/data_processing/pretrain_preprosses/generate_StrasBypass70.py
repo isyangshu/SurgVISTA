@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 
 def main():
-    ROOT_DIR = "/project/mmendoscope/surgical_video/StrasBypass70"
+    ROOT_DIR = "/data/to/your/StrasBypass70"
     VIDEO_NAMES = os.listdir(os.path.join(ROOT_DIR, "frames"))
     VIDEO_NAMES = sorted([x for x in VIDEO_NAMES if "SBP" in x])
     PRETRAIN_COUNT = 0
@@ -49,17 +49,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    # 读取pkl文件,rb是读取二进制文件，而r是读取文本文件
-
-    # file = open('/Users/yangshu/Documents/PSI-AVA/labels/pretrain.pickle', 'rb')
-    # info = pickle.load(file)
-    # total_num = 0
-    # for index in info.keys():
-    #     num = len(info[index])
-    #     total_num += num
-    #     info_final = info[index][-1]
-    #     if info_final['frame_id'] != info_final['frames']-1:
-    #         print(info_final)
-    #         print('!!!!!!!!!!!!!!!!!')
-    #     total_num += num

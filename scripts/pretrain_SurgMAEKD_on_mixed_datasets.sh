@@ -4,12 +4,12 @@ DATA_ROOT="/scratch/mmendoscope/pretraining/"
 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python -m torch.distributed.launch \
 --nproc_per_node=8 \
 --master_port 12322 \
-pretrain_SurgMAEKD/run_surgssl_pretraining.py \
+pretrain_SurgVISTA_KD/run_surgssl_pretraining.py \
 --data_root ${DATA_ROOT} \
 --model pretrain_masked_video_student_base_patch16_224 \
 --log_dir ${OUTPUT_DIR} \
 --output_dir ${OUTPUT_DIR} \
---pretrained_datasets Cholec80 M2CAI16-tool M2CAI16-workflow HeiChole PitVis PSI-AVA AutoLaparo BernBypass70 StrasBypass70 GenSurgery \
+--pretrained_datasets Cholec80 M2CAI16-workflow HeiChole PitVis PSI-AVA AutoLaparo BernBypass70 StrasBypass70 GenSurgery \
 --image_teacher_model surgery_teacher_vit_large_patch16 \
 --distillation_target_dim 1024 \
 --distill_loss_func SmoothL1 \
@@ -31,6 +31,6 @@ pretrain_SurgMAEKD/run_surgssl_pretraining.py \
 --sampling_rate 4 \
 --lr 1.5e-4 \
 --min_lr 1e-4 \
---drop_path 0.1 --warmup_epochs 40 --epochs 401 \
+--drop_path 0.1 --warmup_epochs 40 --epochs 201 \
 --auto_resume \
 --num_workers 10

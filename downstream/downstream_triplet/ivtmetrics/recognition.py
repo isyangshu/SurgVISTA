@@ -61,7 +61,7 @@ class Recognition(Disentangle):
     topClass(k):
         obtain top-k correctly detected classes      
     """    
-    def __init__(self, num_class=89, ignore_null=False):
+    def __init__(self, num_class=100, ignore_null=False):
         super(Recognition, self).__init__()
         np.seterr(divide='ignore', invalid='ignore')
         self.num_class = num_class

@@ -4,11 +4,11 @@ from collections import Counter
 
 def main():
     # Path to the directory containing the 160 subfolders
-    base_dir = '/scratch/syangcw/Cholec80-CSV/videos'
+    ROOT_DIR = "path/to/your/dataset"  # Change this to your dataset path
 
     # Get the list of all subfolders
     subfolders = sorted([f.name for f in os.scandir(base_dir) if f.is_dir()])
-    label_dir = '/scratch/syangcw/Cholec80-CSV/labels.csv'
+    label_dir = '/path/to/your/dataset/labels.csv'
     label_file = open(label_dir, 'r')
     lines = label_file.readlines()[1:]
 
@@ -36,48 +36,16 @@ def main():
             test_set.append(str(label) + '-' + folder)
     print(len(train_set), len(test_set))
     # Write the training subfolders to train.txt
-    with open('/scratch/syangcw/Cholec80-CSV/train.txt', 'w') as train_file:
+    with open('Cholec80-CVS/train.txt', 'w') as train_file:
         for folder in train_set:
             train_file.write(f"{folder}\n")
 
     # Write the testing subfolders to test.txt
-    with open('/scratch/syangcw/Cholec80-CSV/test.txt', 'w') as test_file:
+    with open('Cholec80-CVS/test.txt', 'w') as test_file:
         for folder in test_set:
             test_file.write(f"{folder}\n")
 
     print("Train and test files have been generated.")
 
 if __name__ == '__main__':
-    # main()
-    # with open('/scratch/syangcw/Cholec80-CSV/train.txt', 'r') as train_file:
-    #     train_set = train_file.readlines()
-    #     train_labels = [int(folder.split('-')[0]) for folder in train_set]
-    # train_label_counts = Counter(train_labels)
-    # print(train_label_counts)
-    # with open('/scratch/syangcw/Cholec80-CSV/test.txt', 'r') as test_file:
-    #     test_set = test_file.readlines()
-    #     test_labels = [int(folder.split('-')[0]) for folder in test_set]
-    # test_label_counts = Counter(test_labels)
-    # print(test_label_counts)
-
-    with open('/scratch/syangcw/Cholec80-CSV/train.txt', 'r') as train_file:
-        train_set = train_file.readlines()
-        count = 0
-        print(len(train_set))
-        for i in train_set:
-            name = i.split('-')[-1].strip()
-            img_list = os.listdir(os.path.join('/scratch/syangcw/Cholec80-CSV/videos', name.strip()))
-            count += len(img_list)
-        print(count)
-
-    with open('/scratch/syangcw/Cholec80-CSV/test.txt', 'r') as test_file:
-        test_set = test_file.readlines()
-        print(len(test_set))
-        count_ = 0
-        for i in test_set:
-            name = i.split('-')[-1].strip()
-            img_list = os.listdir(os.path.join('/scratch/syangcw/Cholec80-CSV/videos', name.strip()))
-            count_ += len(img_list)
-        print(count_)
-print(len(train_set) + len(test_set))
-print(count + count_)
+    main()

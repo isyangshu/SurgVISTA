@@ -12,8 +12,8 @@ from pathlib import Path
 from collections import OrderedDict
 import torch.nn.functional as F
 import sys
-sys.path.append("/home/syangcw/SurgSSL")
-sys.path.append("/home/syangcw/SurgSSL/downstream")
+sys.path.append("/home/syangcw/SurgVISTA")
+sys.path.append("/home/syangcw/SurgVISTA/downstream")
 
 from datasets.transforms.mixup import Mixup
 from timm.models import create_model
@@ -41,7 +41,7 @@ from downstream.model.unifiedmodel_image import unified_base_image
 
 def get_args():
     parser = argparse.ArgumentParser(
-        "SurgVideoMAE fine-tuning and evaluation script for video phase recognition",
+        "SurgVISTA fine-tuning and evaluation script for video phase recognition",
         add_help=False,
     )
     parser.add_argument("--batch_size", default=12, type=int)
@@ -325,7 +325,7 @@ def get_args():
     parser.add_argument(
         "--data_set",
         default="Cholec80",
-        choices=["Cholec80", "AutoLaparo", "Cataract101", "M2CAI16", "CATARACT", "Cataract21", "PmLR50"],
+        choices=["Cholec80", "AutoLaparo", "Cataract101", "M2CAI16", "CATARACTS", "Cataract21", "PmLR50"],
         type=str,
         help="dataset",
     )
@@ -349,7 +349,7 @@ def get_args():
     parser.add_argument(
         "--device", default="cuda", help="device to use for training / testing"
     )
-    parser.add_argument("--seed", default=42, type=int)
+    parser.add_argument("--seed", default=0, type=int)
     parser.add_argument("--resume", default="", help="resume from checkpoint")
     parser.add_argument("--auto_resume", action="store_true")
     parser.add_argument("--no_auto_resume", action="store_false", dest="auto_resume")
@@ -565,7 +565,6 @@ def main(args, ds_init):
     else:
         data_loader_test = None
 
-    # 训练Trick，有效显著的数据增强效果，参见：https://blog.csdn.net/sophicchen/article/details/120432083
     mixup_fn = None
     mixup_active = args.mixup > 0 or args.cutmix > 0.0 or args.cutmix_minmax is not None
     if mixup_active:
@@ -583,254 +582,57 @@ def main(args, ds_init):
 
     if args.pretrained_data == "k400":
         if "base" in args.model and args.pretrained_method == 'videomae':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/videomae_base_k400_1600e.pth"
+            pretrained_path = "pretrain_params/videomae_base_k400_1600e.pth"
             args.qkv_bias = False
             args.qkv_divided_bias = True
             args.qkv_divided = False
         if "base" in args.model and args.pretrained_method == 'mvd':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/mvd_base_k400_400e.pth"
+            pretrained_path = "pretrain_params/mvd_base_k400_400e.pth"
             args.qkv_bias = False
             args.qkv_divided_bias = True
             args.qkv_divided = False
 
     elif args.pretrained_data == "k710":
         if "base" in args.model and args.pretrained_method == 'umt':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/umt_base_k710_200e.pth"
+            pretrained_path = "pretrain_params/umt_base_k710_200e.pth"
             args.qkv_bias = False
             args.qkv_divided_bias = True
             args.qkv_divided = False
 
     elif args.pretrained_data == "ssv2":
         if "base" in args.model and args.pretrained_method == 'videomae':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/videomae_base_ssv2_2400e.pth"
+            pretrained_path = "pretrain_params/videomae_base_ssv2_2400e.pth"
             args.qkv_bias = False
             args.qkv_divided_bias = True
             args.qkv_divided = False
         
     elif args.pretrained_data == "hybrid":
         if "base" in args.model and args.pretrained_method == 'videomae':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/internvideo_base_hybrid_800e.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-    
-    elif args.pretrained_data == "pt_hybrid_ft_k710":
-        if "base" in args.model and args.pretrained_method == 'videomaev2':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/videomaev2_base_ft_k710_pt_hybrid_giant.pth"
+            pretrained_path = "pretrain_params/internvideo_base_hybrid_800e.pth"
             args.qkv_bias = False
             args.qkv_divided_bias = True
             args.qkv_divided = False
 
     elif args.pretrained_data == "imagenet1k":
         if "base" in args.model and args.pretrained_method == 'mae':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/mae_base_imagenet1k.bin"
+            pretrained_path = "pretrain_params/mae_base_imagenet1k.bin"
             args.qkv_bias = True
             args.qkv_divided_bias = False
             args.qkv_divided = False
         if "base" in args.model and args.pretrained_method == 'dino':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/dino_base_imagenet1k.bin"
+            pretrained_path = "pretrain_params/dino_base_imagenet1k.bin"
             args.qkv_bias = True
             args.qkv_divided_bias = False
             args.qkv_divided = False
         if "base" in args.model and args.pretrained_method == 'supervised':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/supervised_base_imagenet1k.bin"
+            pretrained_path = "pretrain_params/supervised_base_imagenet1k.bin"
             args.qkv_bias = True
             args.qkv_divided_bias = False
             args.qkv_divided = False
 
-    elif args.pretrained_data == "wit400m":
-        if "base" in args.model and args.pretrained_method == 'clip':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/clip_base_wit400m.bin"
-            args.qkv_bias = True
-            args.qkv_divided_bias = False
-            args.qkv_divided = False
-    
-    elif args.pretrained_data == "settingA":
-        if "base" in args.model and args.pretrained_method == 'videomae-100e':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80]-[100e]/checkpoint-100.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-200e':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80]-[200e]/checkpoint-200.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80]-[400e]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-800e':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80]-[800e]/checkpoint-800.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-09':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80]-[0.9]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-085':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80]-[0.85]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-08':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80]-[0.8]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-075':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80]-[0.75]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-07':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80]-[0.7]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-k400':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_k400]-[Cholec80]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-hybrid':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_hybrid]-[Cholec80]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-st':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMAEKD]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80]-[400e]/checkpoint-399.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-st-09':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[401]-[0.9]-[SurgeryMAEKD]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-st-085':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[401]-[0.85]-[SurgeryMAEKD]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-st-08':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[401]-[0.8]-[SurgeryMAEKD]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-st-075':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[401]-[0.75]-[SurgeryMAEKD]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-st-07':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[401]-[0.7]-[SurgeryMAEKD]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80]/checkpoint-399.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-st-065':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[401]-[0.65]-[SurgeryMAEKD]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-timesformer':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_timesformer]-[Cholec80]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-timesformer-k400':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_timesformer_k400]-[Cholec80]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-timesformer-hybrid':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_timesformer_hybrid]-[Cholec80]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-timesformer-imagenet':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_timesformer_imagenet]-[Cholec80]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-
-    elif args.pretrained_data == "settingB":
-        if "base" in args.model and args.pretrained_method == 'videomae':
-            # pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow]-[800e]/checkpoint-800.pth"
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow]-[400e]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-k400':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_k400]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-hybrid':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_hybrid]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-st':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMAEKD]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow]/checkpoint-399.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-stv1':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMAEKDv1]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow]-[0.05]/checkpoint-399.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        
-    elif args.pretrained_data == "settingC":
-        if "base" in args.model and args.pretrained_method == 'videomae':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow_HeiChole_PitVis_PSI-AVA_AutoLaparo]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-k400':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_k400]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow_HeiChole_PitVis_PSI-AVA_AutoLaparo]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-hybrid':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_hybrid]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow_HeiChole_PitVis_PSI-AVA_AutoLaparo]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-st':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMAEKD]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow_HeiChole_PitVis_PSI-AVA_AutoLaparo]/checkpoint-399.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-
-    elif args.pretrained_data == "settingD":
-        if "base" in args.model and args.pretrained_method == 'videomae':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow_HeiChole_PitVis_PSI-AVA_AutoLaparo_BernBypass70_StrasBypass70]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-k400':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_k400]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow_HeiChole_PitVis_PSI-AVA_AutoLaparo_BernBypass70_StrasBypass70]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-hybrid':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMae]-[pretrain_videomae_base_patch16_224_hybrid]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow_HeiChole_PitVis_PSI-AVA_AutoLaparo_BernBypass70_StrasBypass70]/checkpoint-400.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-        if "base" in args.model and args.pretrained_method == 'videomae-st':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[SurgeryMAEKD]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80_CholecT50_M2CAI16-tool_M2CAI16-workflow_HeiChole_PitVis_PSI-AVA_AutoLaparo_BernBypass70_StrasBypass70]/checkpoint-399.pth"
-            args.qkv_bias = False
-            args.qkv_divided_bias = True
-            args.qkv_divided = False
-    elif args.pretrained_data == "settingE":
-        if "base" in args.model and args.pretrained_method == 'videomae-st':
-            pretrained_path = "/project/mmendoscope/SurgSSL_output/[401]-[0.85]-[SurgeryMAEKD]-[pretrain_masked_video_student_base_patch16_224]-[surgery_teacher_vit_large_patch16]-[Cholec80_M2CAI16-tool_M2CAI16-workflow_HeiChole_PitVis_PSI-AVA_AutoLaparo_BernBypass70_StrasBypass70_GenSurgery]/checkpoint-199.pth"
+    elif args.pretrained_data == "SurgVISTA":
+        if "base" in args.model and args.pretrained_method == 'SurgVISTA':
+            pretrained_path = "pretrain_params/SurgVISTA.pth"
             args.qkv_bias = False
             args.qkv_divided_bias = True
             args.qkv_divided = False
@@ -1150,9 +952,9 @@ def main(args, ds_init):
                     model_ema=None,
                 )
         if data_loader_val is not None:
-            test_stats = validation_one_epoch(data_loader_test, model, device)
+            test_stats = validation_one_epoch(data_loader_val, model, device)
             print(
-                f"Accuracy of the network on the {len(dataset_test)} val videos: {test_stats['acc1']:.1f}%"
+                f"Accuracy of the network on the {len(dataset_val)} val videos: {test_stats['acc1']:.1f}%"
             )
             if max_accuracy < test_stats["acc1"]:
                 max_accuracy = test_stats["acc1"]
