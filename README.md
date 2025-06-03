@@ -10,8 +10,8 @@ for Intelligent Surgery -->
 ## 🔧 Status
 
 - [x] Paper submitted
+- [x] Full code released
 - [ ] Paper accepted
-- [ ] Full code released
 ---
 
 ## 🔬 Abstract
@@ -47,12 +47,74 @@ conda env create -f SurgVISTA.yml
 Activate the environment:
 ```bash
 conda activate SurgVISTA
+```
 
 ## 📂 Data
 Download and preprocess the dataset...
+
+### 🌐 Public Data
+
+**Publicly available datasets used in this project.**
+
+- 🎞️ **Frame Extraction**: Refer to the `/datasets/data_processing/extractframes/extract_frames.py` for scripts to extract frames from videos.
+- 📐 **Frame Resizing**: See the `/datasets/data_processing/extractframes/resize_frame.py` for resizing extracted frames to the desired resolution.
+- 🔢 **Frame Counting**: Use the codes in `/datasets/data_processing/extractframes/count_frame.py` to count the number of frames per dataset.
+- 📂 **Data Preprocessing**: See `datasets/data_processing/pretrain_preprosses` scripts that preprocess each dataset and generate .pkl files for pre-training.
+- 📂 **Dataset Construction**: See `datasets/datasets4pretraining` for dataset building logic.
+
+### 📺 Online Video Collection
+
+For videos collected from online sources, you can directly follow the [GenSurgery](https://github.com/SamuelSchmidgall/GSViT) pipeline for downloading.
+
+After manually removing invalid or corrupted videos, the cleaned dataset can be used directly for pre-training.
+
+We further curated the dataset by:
+- Adding additional relevant surgical videos manually
+- Filtering out unrelated or low-quality content
+
+The complete video dataset will be released via [Hugging Face Datasets](https://huggingface.co/datasets/syangcw/SurgVISTADATA) after final cleaning and validation.
+
+### 📚 Related Resources
+
+You may also refer to the following projects for dataset construction strategies:
+
+- [SurgeNet](https://github.com/TimJaspers0801/SurgeNet): Built upon [GenSurgery](https://github.com/SamuelSchmidgall/GSViT), this project provides a similar pipeline for collecting and preprocessing surgical video data.
+- [Surg3M](https://github.com/visurg-ai/surg-3m): A large-scale surgical video dataset with detailed documentation and public access.
 
 ## 🧠 Pre-training
 Run the pre-training pipeline on your own data...
 
 ## 🎯 Finetuning
 Fine-tune the pre-trained model on downstream tasks...
+
+
+## Acknowledgements
+The project was built on top of amazing repositories such as [UNI](https://github.com/mahmoodlab/UNIn), [CLAM](https://github.com/mahmoodlab/CLAM) and [OpenCLIP](https://github.com/mlfoundations/open_clip). We thank the authors and developers for their contribution. 
+
+
+## Reference
+If you find our work useful in your research or if you use parts of this code please consider citing our [paper](https://arxiv.org/abs/2407.15362):
+
+Yang, S., Zhou, F., Mayer, L., Huang, F., Chen, Y., Wang, Y., Maire-Hein, L. & Chen, H. (2025). Large-scale Self-supervised Video Foundation Model for Intelligent Surgery. arXiv preprint arXiv:2407.15362.
+
+```
+@misc{SurgVISTA,
+      title={Large-scale Self-supervised Video Foundation Model for Intelligent Surgery}, 
+      author={Shu Yang and Fengtao Zhou and Leon Mayer and Fuxiang Huang and Yiliang Chen and Yihui Wang and Sunan He and Yuxiang Nie and Xi Wang and Ömer Sümer and Yueming Jin and Huihui Sun and Shuchang Xu and Alex Qinyang Liu and Zheng Li and Jing Qin and Jeremy YuenChun Teoh and Lena Maier-Hein and Hao Chen},
+      year={2025},
+      eprint={2407.15362},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2407.15362}, 
+}
+```
+
+## License and Terms of Tuse
+
+ⓒ SmartLab. This model and associated code are released under the [CC-BY-NC-ND 4.0]((https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en)) license and may only be used for non-commercial, academic research purposes with proper attribution. Any commercial use, sale, or other monetization of the SurgVISTA model and its derivatives, which include models trained on outputs from the SurgVISTA model or datasets created from the SurgVISTA model, is prohibited and reguires prior approval.
+
+
+If you have any question, feel free to email [Shu Yang](syangcw@connect.ust.hk).
+
+----
+<img src=assets/logo.png> 
