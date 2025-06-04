@@ -263,7 +263,6 @@ def final_phase_test(data_loader, model, device, file):
         metric_logger.meters["acc5"].update(acc5.item(), n=batch_size)
 
     if not os.path.exists(file):
-        # os.mknod(file)  # 用于创建一个指定文件名的文件系统节点，暂时无权限
         open(file, 'a').close()
 
     with open(file, "w") as f:
@@ -310,7 +309,6 @@ def merge(eval_path, num_tasks):
     print(len(dict_feats))
     for i, item in enumerate(dict_feats):
         input_lst.append([i, item, dict_feats[item], dict_label[item]])
-        # 在这里存一下合并的输出，多GPU测试之后保留输出，用于评测更细致的指标
     from multiprocessing import Pool
 
     p = Pool(64)

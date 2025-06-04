@@ -119,7 +119,7 @@ class CVSDataset_Endoscapes(Dataset):
         data_path="data/Endoscapes",
         mode="train",  # val/test
         clip_len=16,
-        frame_sample_rate=1,  # 0表示指数级间隔，-1表示随机间隔设置, -2表示递增间隔
+        frame_sample_rate=1,
         crop_size=224,
         short_side_size=256,
         new_height=256,

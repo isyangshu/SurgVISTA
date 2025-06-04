@@ -121,7 +121,7 @@ class PhaseDataset_PmLR50(Dataset):
         data_strategy="online",  # offline
         output_mode="key_frame",  # all_frame
         clip_len=16,
-        frame_sample_rate=2,  # 0表示指数级间隔，-1表示随机间隔设置, -2表示递增间隔
+        frame_sample_rate=2,
         crop_size=224,
         short_side_size=256,
         new_height=256,
@@ -444,9 +444,7 @@ class PhaseDataset_PmLR50(Dataset):
                 path = self.dataset_samples[image_index]["img_path"]
                 image_data = Image.open(path)
                 phase_label = self.dataset_samples[image_index]["phase_gt"]
-                # PIL可视化
                 # image_data.show()
-                # cv2可视化
                 # img = cv2.cvtColor(np.asarray(image_data), cv2.COLOR_RGB2BGR)
                 # cv2.imshow(str(num), img)
                 # cv2.waitKey()
@@ -467,11 +465,6 @@ class PhaseDataset_PmLR50(Dataset):
         return video_data, phase_data, sampled_list
 
     def _video_batch_loader_for_key_frames(self, duration, timestamp, video_id, index):
-        # 永远控制的只有对应帧序号和整个视频序列有效视频数目，不受采样FPS影响，根据标签映射回对应image path
-        # 当前视频内帧序号为timestamp,
-        # 当前数据集内帧序号为index
-        # 为了保证偶数输入的前序帧以及后续帧数目保持一致，中间double了关键帧
-        # 如果为奇数，则中间帧位于中间，但是3D卷积不适用于偶数kernel及stride
         right_len = self.clip_len // 2
         left_len = self.clip_len - right_len
         offset_value = index - timestamp
@@ -530,9 +523,7 @@ class PhaseDataset_PmLR50(Dataset):
                 path = self.dataset_samples[image_index]["img_path"]
                 image_data = Image.open(path)
                 phase_label = self.dataset_samples[image_index]["phase_gt"]
-                # PIL可视化
                 # image_data.show()
-                # cv2可视化
                 # img = cv2.cvtColor(np.asarray(image_data), cv2.COLOR_RGB2BGR)
                 # cv2.imshow(str(num), img)
                 # cv2.waitKey()
@@ -580,7 +571,7 @@ def build_dataset(is_train, test_mode, fps, args):
             data_strategy="online",
             output_mode="key_frame",
             clip_len=8,
-            frame_sample_rate=4,  # 0表示指数级间隔，-1表示随机间隔设置, -2表示递增间隔
+            frame_sample_rate=4,
             keep_aspect_ratio=True,
             crop_size=args.input_size,
             short_side_size=args.short_side_size,

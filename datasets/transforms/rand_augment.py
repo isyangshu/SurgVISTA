@@ -33,8 +33,8 @@ from PIL import Image, ImageEnhance, ImageOps
 
 _PIL_VER = tuple([int(x) for x in PIL.__version__.split(".")[:2]])
 
-_FILL = (128, 128, 128)  # 灰色补全
-# _FILL = (0, 0, 0)  # 黑色补全，与正常内窥镜截断一致
+_FILL = (128, 128, 128)
+# _FILL = (0, 0, 0)
 
 # This signifies the max integer that the controller RNN could predict for the
 # augmentation scheme.

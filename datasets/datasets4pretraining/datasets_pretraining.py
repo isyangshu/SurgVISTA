@@ -14,7 +14,7 @@ class DataAugmentationForVideoDistillation(object):
             args.input_size, args.teacher_input_size, [1, .875, .75, .66]
         )
         self.transform = transforms.Compose([
-            Stack(roll=False),  # roll的意思代表将图像序列反序构建
+            Stack(roll=False),
             ToTorchFormatTensor(div=True),
             normalize,
         ])

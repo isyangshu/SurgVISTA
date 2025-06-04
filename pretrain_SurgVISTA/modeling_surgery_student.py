@@ -494,7 +494,6 @@ if __name__ == "__main__":
     print(f"Total parameters: {total_params}")
     # input = torch.randn((2, 3, 16, 224, 224)).cuda()
 
-    # # 使用逻辑条件将超过 0.1 的元素设置为 1，其余为 0
     # mask = TubeMaskingGenerator(input_size=(8, 14, 14), mask_ratio=0.9)
     # masks_1 = torch.tensor(mask().astype(bool)).unsqueeze(0)
     # masks_2 = torch.tensor(mask().astype(int)).unsqueeze(0)

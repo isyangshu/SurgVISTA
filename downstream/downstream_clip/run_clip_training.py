@@ -458,7 +458,6 @@ def main(args, ds_init):
         is_train=True, test_mode=False, fps=args.data_fps, args=args
     )
 
-    # 是否在训练时在验证集上测试性能
     if args.disable_eval_during_finetuning:
         dataset_val = None
     else:
@@ -467,7 +466,7 @@ def main(args, ds_init):
         )
     dataset_test, _ = build_dataset(
         is_train=False, test_mode=True, fps=args.data_fps, args=args
-    )  # Cholec80后40个数据集用于测试：2452890
+    )
 
     print("Train Dataset Length: ", len(dataset_train))
     print("Val Dataset Length: ", len(dataset_val))
@@ -649,8 +648,6 @@ def main(args, ds_init):
     print("Window size: = %s" % str(args.window_size))
     args.patch_size = patch_size
 
-    # 加载预训练参数，并且根据策略调整Patch_embedding，可直接加载基于VideoMAE预训练参数
-    # 也可以加载官方的VIT的预训练参数
     if args.finetune:
         if args.finetune.startswith("https"):
             checkpoint = torch.hub.load_state_dict_from_url(
@@ -778,7 +775,7 @@ def main(args, ds_init):
         assigner = LayerDecayValueAssigner(
             [args.layer_decay] * (num_layers + 1) + [1.0]
         )
-    elif args.layer_decay < 1.0:  # 沿层以几何方式降低学习率
+    elif args.layer_decay < 1.0:
         assigner = LayerDecayValueAssigner(
             list(
                 args.layer_decay ** (num_layers + 1 - i) for i in range(num_layers + 2)

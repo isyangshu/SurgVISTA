@@ -247,9 +247,7 @@ class VideoDistillation(torch.utils.data.Dataset):
                 image_name_list.append(self.data_samples[image_index]["img_path"])
                 path = self.data_samples[image_index]["img_path"]
                 image_data = Image.open(path)
-                # PIL可视化
                 # image_data.show()
-                # cv2可视化
                 # img = cv2.cvtColor(np.asarray(image_data), cv2.COLOR_RGB2BGR)
                 # cv2.imshow(str(num), img)
                 # cv2.waitKey()
@@ -486,9 +484,7 @@ class VideoMaskedPretraining(torch.utils.data.Dataset):
                 image_name_list.append(self.data_samples[image_index]["img_path"])
                 path = self.data_samples[image_index]["img_path"]
                 image_data = Image.open(path)
-                # PIL可视化
                 # image_data.show()
-                # cv2可视化
                 # img = cv2.cvtColor(np.asarray(image_data), cv2.COLOR_RGB2BGR)
                 # cv2.imshow(str(num), img)
                 # cv2.waitKey()

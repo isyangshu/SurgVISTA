@@ -16,12 +16,10 @@ def main():
     FRAME_NUMBERS = 0
 
     for video_id in VIDEO_NAMES:
-        # 总帧数(frames)
         video_path = os.path.join(ROOT_DIR, "frames", split, video_id)
         frames_list = os.listdir(video_path)
         frames_list = sorted([int(x.split('.')[0]) for x in frames_list if "jpg" in x])
 
-        # 打开Label文件
         triplet_path = os.path.join(ROOT_DIR, 'annos', split, video_id + '.json')
         with open(triplet_path, 'r') as triplet_file:
             triplet_data = json.load(triplet_file)

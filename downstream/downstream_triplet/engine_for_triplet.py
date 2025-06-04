@@ -195,7 +195,6 @@ def validation_one_epoch(data_loader, model, device, file, num_tasks):
         metric_logger.update(loss=loss.item())
 
     if not os.path.exists(file):
-        # os.mknod(file)  # 用于创建一个指定文件名的文件系统节点，暂时无权限
         open(file, 'a').close()
         
     with open(file, "w") as f:
@@ -250,7 +249,6 @@ def final_triplet_test(data_loader, model, device, file):
         metric_logger.update(loss=loss.item())
 
     if not os.path.exists(file):
-        # os.mknod(file)  # 用于创建一个指定文件名的文件系统节点，暂时无权限
         open(file, 'a').close()
         
     with open(file, "w") as f:

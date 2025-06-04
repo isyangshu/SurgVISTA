@@ -897,8 +897,6 @@ def transforms_imagenet_train(
     else:
         return transforms.Compose(primary_tfl + secondary_tfl + final_tfl)
 
-############################################################################################################
-############################################################################################################
 
 class Compose(object):
     """Composes several transforms

@@ -59,12 +59,10 @@ def main():
             unique_id = unique_id_test
             vid_id = int(video_name.replace('.mp4', '').replace("test", ""))
 
-        # 打开视频文件
         vidcap = cv2.VideoCapture(os.path.join(ROOT_DIR, 'videos/micro', video_name))
         fps = math.ceil(vidcap.get(cv2.CAP_PROP_FPS))
         frames = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
 
-        # 打开Label文件
         if video_name in TRAIN_NAME:
             phase_path = os.path.join(ROOT_DIR, 'ground_truth/CATARACTS_2020/train_gt', video_name.replace('.mp4', '.csv'))
         elif video_name in VAL_NAME:

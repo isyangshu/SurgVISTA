@@ -75,7 +75,6 @@ def train_one_epoch(args, model: torch.nn.Module, data_loader: Iterable, optimiz
                 labels = videos_patch[bool_masked_pos].reshape(B, -1, C)
 
                 image_teacher_model.eval()
-                # 对于image teacher的特征是仅整个时序序列还是stride采样
                 if time_stride_loss:
                     teacher_features = image_teacher_model(
                         rearrange(videos_for_teacher[:, :, ::tubelet_size, :, :], 'b c t h w -> (b t) c h w'),

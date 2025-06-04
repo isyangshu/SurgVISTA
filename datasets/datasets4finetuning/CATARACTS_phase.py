@@ -122,7 +122,7 @@ class PhaseDataset_CATARACTS(Dataset):
         output_mode="key_frame",  # all_frame
         cut_black=False,
         clip_len=16,
-        frame_sample_rate=2,  # 0表示指数级间隔，-1表示随机间隔设置, -2表示递增间隔
+        frame_sample_rate=2,
         crop_size=224,
         short_side_size=256,
         new_height=256,
@@ -214,35 +214,6 @@ class PhaseDataset_CATARACTS(Dataset):
                 ) = self._video_batch_loader_for_key_frames(
                     frames, frame_id, video_id, index, False
                 )  # T H W C
-
-            # 跳过了所有具有重复帧的视频序列（集中在每个视频序列的初始位置）
-            # if len(sampled_list) != len(np.unique(sampled_list)):
-            #     while len(sampled_list) != len(np.unique(sampled_list)):
-            #         warnings.warn(
-            #             "Video {} Frame {} not correctly have enough unique frames".format(
-            #                 video_id, frame_id
-            #             )
-            #         )
-            #         index = np.random.randint(self.__len__())
-            #         sample = self.dataset_samples[index]
-
-            #         video_id, frame_id, frames = (
-            #             sample["video_id"],
-            #             sample["frame_id"],
-            #             sample["frames"],
-            #         )
-            #         if self.data_strategy == "online":
-            #             buffer, phase_labels, sampled_list = self._video_batch_loader(
-            #                 frames, frame_id, video_id, index, False
-            #             )  # T H W C
-            #         elif self.data_strategy == "offline":
-            #             (
-            #                 buffer,
-            #                 phase_labels,
-            #                 sampled_list,
-            #             ) = self._video_batch_loader_for_key_frames(
-            #                 frames, frame_id, video_id, index, False
-            #             )  # T H W C
 
             buffer = self._aug_frame(buffer, args)
 
@@ -524,9 +495,7 @@ class PhaseDataset_CATARACTS(Dataset):
                     path = path.replace('frames', 'frames_cutmargin')
                 image_data = Image.open(path)
                 phase_label = self.dataset_samples[image_index]["phase_gt"]
-                # PIL可视化
                 # image_data.show()
-                # cv2可视化
                 # img = cv2.cvtColor(np.asarray(image_data), cv2.COLOR_RGB2BGR)
                 # cv2.imshow(str(num), img)
                 # cv2.waitKey()
@@ -547,11 +516,6 @@ class PhaseDataset_CATARACTS(Dataset):
         return video_data, phase_data, sampled_list
 
     def _video_batch_loader_for_key_frames(self, duration, timestamp, video_id, index, cut_black):
-        # 永远控制的只有对应帧序号和整个视频序列有效视频数目，不受采样FPS影响，根据标签映射回对应image path
-        # 当前视频内帧序号为timestamp,
-        # 当前数据集内帧序号为index
-        # 为了保证偶数输入的前序帧以及后续帧数目保持一致，中间double了关键帧
-        # 如果为奇数，则中间帧位于中间，但是3D卷积不适用于偶数kernel及stride
         right_len = self.clip_len // 2
         left_len = self.clip_len - right_len
         offset_value = index - timestamp
@@ -612,9 +576,7 @@ class PhaseDataset_CATARACTS(Dataset):
                     path = path.replace('frames', 'frames_cutmargin')
                 image_data = Image.open(path)
                 phase_label = self.dataset_samples[image_index]["phase_gt"]
-                # PIL可视化
                 # image_data.show()
-                # cv2可视化
                 # img = cv2.cvtColor(np.asarray(image_data), cv2.COLOR_RGB2BGR)
                 # cv2.imshow(str(num), img)
                 # cv2.waitKey()
@@ -663,7 +625,7 @@ def build_dataset(is_train, test_mode, fps, args):
             output_mode="key_frame",
             cut_black=False,
             clip_len=8,
-            frame_sample_rate=1,  # 0表示指数级间隔，-1表示随机间隔设置, -2表示递增间隔
+            frame_sample_rate=1,
             keep_aspect_ratio=True,
             crop_size=args.input_size,
             short_side_size=args.short_side_size,

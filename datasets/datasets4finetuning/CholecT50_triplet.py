@@ -126,7 +126,7 @@ class TripletDataset_CholecT50(Dataset):
         data_strategy="online",  # offline
         output_mode="key_frame",  # all_frame
         clip_len=16,
-        frame_sample_rate=4,  # 0表示指数级间隔，-1表示随机间隔设置, -2表示递增间隔
+        frame_sample_rate=4,
         crop_size=224,
         short_side_size=256,
         long_side_size=448,
@@ -197,8 +197,6 @@ class TripletDataset_CholecT50(Dataset):
             )
 
     def __getitem__(self, index):
-        # 在构建数据集的过程中，仅对有标注数据进行训练。
-        # 但是在围绕标注数据构建视频序列时，考虑无标注的手术数据帧，但是可能包含对应的噪音图像(全黑或非手术场景)
         if self.mode == "train":
             args = self.args
             frames_info = self.dataset_samples[index]
@@ -370,62 +368,9 @@ class TripletDataset_CholecT50(Dataset):
                     if "original_frame_id" in line_info
                     else str(line_info["frame_id"]).zfill(6)  + ".png",
                 )
-                # 当使用1fps采样时，line_info["frame_id"]类似于对应的序号，line_info["original_frame_id"]表示对应的图像序号
                 line_info["img_path"] = img_path
                 frames.append(line_info)
         return frames
-
-    # def _video_batch_loader(self, duration, indice, video_id, index):
-    #     offset_value = index - indice
-    #     frame_sample_rate = self.frame_sample_rate
-    #     sampled_list = []
-    #     frame_id_list = []
-    #     for i, _ in enumerate(range(0, self.clip_len)):
-    #         frame_id = indice
-    #         frame_id_list.append(frame_id)
-    #         if self.frame_sample_rate == -1:
-    #             frame_sample_rate = random.randint(1, 5)
-    #         elif self.frame_sample_rate == 0:
-    #             frame_sample_rate = 2**i
-    #         elif self.frame_sample_rate == -2:
-    #             frame_sample_rate = 1 if 2 * i == 0 else 2 * i
-    #         if indice - frame_sample_rate >= 0:
-    #             indice -= frame_sample_rate
-    #     sampled_list = sorted([i + offset_value for i in frame_id_list])
-    #     sampled_image_list = []
-    #     sampled_label_list = []
-    #     image_name_list = []
-    #     for num, image_index in enumerate(sampled_list):
-    #         try:
-    #             image_name_list.append(self.dataset_samples[image_index]["img_path"])
-    #             path = self.dataset_samples[image_index]["img_path"]
-    #             image_data = Image.open(path)
-    #             triplet_label = self.dataset_samples[image_index]["triplet_gt"]
-    #             triplet_label_ = np.zeros([100])
-    #             for i in triplet_label:
-    #                 triplet_label_[triplet_label[0]] += 1
-    #             # PIL可视化
-    #             # image_data.show()
-    #             # cv2可视化
-    #             # img = cv2.cvtColor(np.asarray(image_data), cv2.COLOR_RGB2BGR)
-    #             # cv2.imshow(str(num), img)
-    #             # cv2.waitKey()
-    #             sampled_image_list.append(image_data)
-    #             sampled_label_list.append(triplet_label_)
-    #         except:
-    #             raise RuntimeError(
-    #                 "Error occured in reading frames {} from video {} of path {} (Unique_id: {}).".format(
-    #                     frame_id_list[num],
-    #                     video_id,
-    #                     self.dataset_samples[image_index]["img_path"],
-    #                     image_index,
-    #                 )
-    #             )
-    #     print(image_name_list)
-    #     video_data = np.stack(sampled_image_list)
-    #     phase_data = np.stack(sampled_label_list)
-
-    #     return video_data, phase_data, sampled_list
 
     def _video_batch_loader(self, duration, indice, video_id, index):
         frame_sample_rate = self.frame_sample_rate
@@ -509,7 +454,7 @@ def build_dataset(is_train, test_mode, fps, args):
             data_strategy="online",
             output_mode="key_frame",
             clip_len=8,
-            frame_sample_rate=8,  # 0表示指数级间隔，-1表示随机间隔设置, -2表示递增间隔
+            frame_sample_rate=8,
             keep_aspect_ratio=True,
             crop_size=args.input_size,
             short_side_size=args.short_side_size,

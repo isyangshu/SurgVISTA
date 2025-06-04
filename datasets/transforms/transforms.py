@@ -106,7 +106,7 @@ class GroupMultiScaleCrop(object):
         im_size = img_group[0].size
 
         crop_w, crop_h, offset_w, offset_h = self._sample_crop_size(im_size)
-        # 给定裁剪起始及裁剪尺寸进行裁剪及Resize，处理过程中维持视频序列相同处理方案
+
         crop_img_group = [
             img.crop((offset_w, offset_h, offset_w + crop_w, offset_h + crop_h))
             for img in img_group
@@ -122,7 +122,7 @@ class GroupMultiScaleCrop(object):
         #     cv2.waitKey()
         return (ret_img_group, label)
 
-    # 取较短边计算裁剪尺寸，并将小于input_size的设置为input_size，然后混合裁剪尺寸，生成多尺度长宽比
+
     def _sample_crop_size(self, im_size):
         image_w, image_h = im_size[0], im_size[1]
 

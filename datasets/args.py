@@ -563,7 +563,7 @@ def get_args_finetuning():
     parser.add_argument("--num_frames", type=int, default=8)
     parser.add_argument(
         "--sampling_rate", type=int, default=4
-    )  # 0表示指数级间隔，-1表示随机间隔设置, -2表示递增间隔
+    )
     parser.add_argument(
         "--data_set",
         default="AutoLaparo",

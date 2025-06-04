@@ -32,12 +32,10 @@ def main():
         elif vid_id in TEST_NUMBERS:
             unique_id = unique_id_test
 
-        # 打开视频文件
         vidcap = cv2.VideoCapture(os.path.join(ROOT_DIR, 'videos', video_name))
         fps = vidcap.get(cv2.CAP_PROP_FPS)
         frames = vidcap.get(cv2.CAP_PROP_FRAME_COUNT)
 
-        # 打开Label文件
         phase_path = os.path.join(ROOT_DIR, 'phases', video_name.replace('.mp4', '.txt')).replace("video", "video_phase")
         phase_file = open(phase_path, 'r')
         phase_results = phase_file.readlines()[1:]

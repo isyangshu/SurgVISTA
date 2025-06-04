@@ -41,15 +41,15 @@ def main():
             unique_id = unique_id_train
         elif vid_id in TEST_NUMBERS:
             unique_id = unique_id_test
-        # 打开视频文件
+
         vidcap = cv2.VideoCapture(os.path.join(ROOT_DIR, './videos/' + video_name + '.mp4'))
-        # 帧率(frames per second)
+
         fps = vidcap.get(cv2.CAP_PROP_FPS)
         if fps != 25:
             print(video_name, 'not at 25fps', fps)
-        # 总帧数(frames)
+
         frame_length = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
-        # 打开Label文件
+
         phase_path = os.path.join(ROOT_DIR, 'labels', video_name + '.csv')
         with open(phase_path, mode='r') as infile:
             reader = csv.reader(infile)

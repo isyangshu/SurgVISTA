@@ -11,7 +11,6 @@ with open(csv_phase, "r") as csvfile:
     next(reader)
     for row in reader:
         video_id, frame_number, phase_id = row[0].split(";")
-        # 生成逐帧标注的txt文件名
         videos[video_id].append([video_id, frame_number, phase_id])
 
 count_1 = 0
@@ -25,9 +24,8 @@ for video_id in videos.keys():
         count_1 += 1
         txt_filename = os.path.join(save_txt_folder, f"{video_id}.txt")
 
-        # 打开txt文件并写入逐帧标注
         with open(txt_filename, "a") as txtfile:
-            txtfile.write("Frame\tPhase\n")  # 写入标题行
+            txtfile.write("Frame\tPhase\n")
             phase = phase_id[0]
             for frame in range(frames_position[0], frames_position[-1]+1):
                 if frame in frames_position:
@@ -41,9 +39,8 @@ for video_id in videos.keys():
         frame_folder = os.path.join("/Users/yangshu/Downloads/cataract-101/videos/", "case_" + str(video_id)+".mp4")
         vidcap = cv2.VideoCapture(frame_folder)
         length = int(vidcap.get(7))
-        # 打开txt文件并写入逐帧标注
         with open(txt_filename, "a") as txtfile:
-            txtfile.write("Frame\tPhase\n")  # 写入标题行
+            txtfile.write("Frame\tPhase\n")
             phase = phase_id[0]
             for frame in range(frames_position[0], length):
                 if frame in frames_position:

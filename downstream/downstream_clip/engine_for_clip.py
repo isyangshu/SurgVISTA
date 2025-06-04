@@ -256,7 +256,7 @@ def final_phase_test(data_loader, model, device, file):
         metric_logger.meters["acc5"].update(acc5.item(), n=batch_size)
 
     if not os.path.exists(file):
-        # os.mknod(file)  # 用于创建一个指定文件名的文件系统节点，暂时无权限
+        # os.mknod(file)
         open(file, 'a').close()
 
     with open(file, "w") as f:
@@ -301,7 +301,6 @@ def merge(eval_path, num_tasks):
     input_lst = []
     for i, item in enumerate(dict_feats):
         input_lst.append([i, item, dict_feats[item], dict_label[item]])
-        # 在这里存一下合并的输出，多GPU测试之后保留输出，用于评测更细致的指标
     from multiprocessing import Pool
 
     p = Pool(64)
@@ -318,20 +317,16 @@ def merge(eval_path, num_tasks):
     recall = recall_score(label, pred, average='micro') 
 
     feat = np.array(feat)
-    # 计算 mAP
-    num_classes = feat.shape[1]  # 类别数
+    num_classes = feat.shape[1]
     ap_per_class = []
     label = np.array(label)
     for i in range(num_classes):
-        # 转换为二分类任务：第 i 类为正样本，其他类为负样本
-        y_true_binary = (label == i).astype(int)  # 第 i 类为正类 (1), 其他为负类 (0)
-        y_scores_class = feat[:, i]           # 第 i 类的预测得分
+        y_true_binary = (label == i).astype(int)
+        y_scores_class = feat[:, i]
 
-        # 计算该类别的 AP
         ap = average_precision_score(y_true_binary, y_scores_class)
         ap_per_class.append(ap)
 
-    # 计算 mAP
     mAP = np.mean(ap_per_class)
 
     final_top1, final_top5 = np.mean(top1), np.mean(top5)

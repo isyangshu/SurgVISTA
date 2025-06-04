@@ -126,7 +126,7 @@ class TripletDataset_Prostate21(Dataset):
         data_strategy="online",  # offline
         output_mode="key_frame",  # all_frame
         clip_len=16,
-        frame_sample_rate=4,  # 0表示指数级间隔，-1表示随机间隔设置, -2表示递增间隔
+        frame_sample_rate=4,
         crop_size=224,
         short_side_size=256,
         long_side_size=448,
@@ -359,9 +359,6 @@ class TripletDataset_Prostate21(Dataset):
         return frames
 
     def _video_batch_loader(self, duration, indice, video_id, index, min_frame_index):
-        # index当前帧的全局索引
-        # frame_id当前帧的局部索引
-        # min_frame_index当前视频的最小帧索引
         frame_index = index
         frame_sample_rate = self.frame_sample_rate
         frame_index_list = []
@@ -415,7 +412,7 @@ def build_dataset(is_train, test_mode, fps):
         data_strategy="online",
         output_mode="key_frame",
         clip_len=8,
-        frame_sample_rate=4,  # 0表示指数级间隔，-1表示随机间隔设置, -2表示递增间隔
+        frame_sample_rate=4,
         keep_aspect_ratio=True,
         crop_size=224,
         short_side_size=224,

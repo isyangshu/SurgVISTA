@@ -236,12 +236,10 @@ def main():
         elif vid_id in TEST_NUMBERS:
             unique_id = unique_id_test
 
-        # 总帧数(frames)
         video_path = os.path.join(ROOT_DIR, "videos", video_id)
         frames_list = os.listdir(video_path)
         frames_list = sorted([x for x in frames_list if "png" in x])
 
-        # 打开Label文件
         triplet_path = os.path.join(ROOT_DIR, 'triplet', video_id + '.txt')
         triplet_file = open(triplet_path, 'r')
         triplet_results = triplet_file.readlines()[1:]
