@@ -107,9 +107,10 @@ The following hyperparameters are used in our training pipeline. You can adjust 
 | `num_epochs`       | `201`         | Total number of training epochs.  (+1 for successfully saving 200.pth)                                         |
 | `decoder_depth_image`      | `2`            | Number of transformer decoder layers used for the image branch.            |
 | `decoder_depth_video`      | `4`            | Number of transformer decoder layers used for the video branch.            |
-| `feat_decoder_embed_dim`   | `384`          | Embedding dimension of the decoder for both image features.      |
+| `feat_decoder_embed_dim`   | `384`          | Embedding dimension of the decoder for image features.      |
 | `feat_decoder_num_heads`   | `6`            | Number of attention heads in the feature decoder
 | `pretrained_datasets`       | `'Cholec80 AutoLaparo'`  | Comma-separated list of dataset names used for pre-training. Controls which datasets are loaded and included in training. |
+| `mask_ratio`                | `0.85`         | Ratio of input patches to mask during masked modeling. Higher values make the task harder. |
 
 ## 🎯 Finetuning
 Fine-tune the pre-trained model on downstream tasks...

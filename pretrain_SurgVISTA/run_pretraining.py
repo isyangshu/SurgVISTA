@@ -23,7 +23,7 @@ import pretrain_SurgVISTA.modeling_surgery_teacher as modeling_surgery_teacher
 
 
 def get_args():
-    parser = argparse.ArgumentParser("Surgery VideoMAE with Knowledge Distillation pre-training script", add_help=False)
+    parser = argparse.ArgumentParser("SurgVISTA with Knowledge Distillation pre-training script", add_help=False)
     parser.add_argument("--batch_size", default=64, type=int)
     parser.add_argument("--epochs", default=800, type=int)
     parser.add_argument("--save_ckpt_freq", default=50, type=int)
