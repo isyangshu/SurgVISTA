@@ -116,13 +116,13 @@ Fine-tune the pre-trained model on downstream tasks...
 
 
 ## Acknowledgements
-The project was built on top of amazing repositories such as [UNI](https://github.com/mahmoodlab/UNIn), [CLAM](https://github.com/mahmoodlab/CLAM) and [OpenCLIP](https://github.com/mlfoundations/open_clip). We thank the authors and developers for their contribution. 
+The project was built on top of amazing repositories such as [VideoMAE](https://github.com/MCG-NJU/VideoMAE), [MVD](https://github.com/ruiwang2021/mvd), [TeCNO](https://github.com/tobiascz/TeCNO), and [Surgformer](https://github.com/isyangshu/Surgformer). We thank the authors and developers for their contribution. 
 
 
 ## Reference
-If you find our work useful in your research or if you use parts of this code please consider citing our [paper](https://arxiv.org/abs/2407.15362):
+If you find our work useful in your research or if you use parts of this code please consider citing our [paper](https://arxiv.org/abs/2506.02692):
 
-Yang, S., Zhou, F., Mayer, L., Huang, F., Chen, Y., Wang, Y., Maire-Hein, L. & Chen, H. (2025). Large-scale Self-supervised Video Foundation Model for Intelligent Surgery. arXiv preprint arXiv:2407.15362.
+Yang, S., Zhou, F., Mayer, L., Huang, F., Chen, Y., Wang, Y., Maire-Hein, L. & Chen, H. (2025). Large-scale Self-supervised Video Foundation Model for Intelligent Surgery. arXiv preprint arXiv:2506.02692.
 
 ```
 @misc{SurgVISTA,
