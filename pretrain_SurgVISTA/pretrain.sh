@@ -1,10 +1,10 @@
-OUTPUT_DIR="/project/mmendoscope/SurgSSL_output"
-DATA_ROOT="/scratch/mmendoscope/pretraining/"
+OUTPUT_DIR="/home/syangcw/SurgVISTA"
+DATA_ROOT="/project/medimgfmod/syangcw/pretraining"
 
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python -m torch.distributed.launch \
---nproc_per_node=8 \
---master_port 12322 \
-pretrain_SurgVISTA_KD/run_surgssl_pretraining.py \
+CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.launch \
+--nproc_per_node=4 \
+--master_port 12332 \
+pretrain_SurgVISTA/run_pretraining.py \
 --data_root ${DATA_ROOT} \
 --model pretrain_masked_video_student_base_patch16_224 \
 --log_dir ${OUTPUT_DIR} \

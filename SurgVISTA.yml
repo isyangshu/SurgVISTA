@@ -1,4 +1,4 @@
-name: SurgSSL
+name: SurgVISTA
 channels:
   - defaults
 dependencies:

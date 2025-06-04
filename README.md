@@ -2,8 +2,8 @@
 ## Large-scale Self-supervised Video Foundation Model
 for Intelligent Surgery -->
 ![header](https://capsule-render.vercel.app/api?type=waving&height=160&color=gradient&text=SurgVISTA:&section=header&fontAlign=15&fontSize=42&textBg=false&descAlignY=45&fontAlignY=20&descSize=23&desc=Large-scale%20Self-supervised%20Video%20Foundation%20Model%20for%20Intelligent%20Surgery&descAlign=52)
-<!-- [![Arxiv Page](https://img.shields.io/badge/Arxiv-2407.15362-red?style=flat-square)](https://arxiv.org/abs/2407.15362) -->
-![GitHub last commit](https://img.shields.io/github/last-commit/Innse/mSTAR?style=flat-square)
+[![Arxiv Page](https://img.shields.io/badge/Arxiv-2506.02692-red?style=flat-square)](https://arxiv.org/abs/2506.02692)
+![GitHub last commit](https://img.shields.io/github/last-commit/isyangshu/SurgVISTA?style=flat-square)
 [![Hugging face](https://img.shields.io/badge/%F0%9F%A4%97%20%20-SurgVISTA-yellow)](https://huggingface.co/syangcw/SurgVISTA)
 --- 
 
@@ -11,7 +11,6 @@ for Intelligent Surgery -->
 
 - [x] Paper submitted
 - [x] Full code released
-- [ ] Paper accepted
 ---
 
 ## 🔬 Abstract
@@ -84,6 +83,34 @@ You may also refer to the following projects for dataset construction strategies
 ## 🧠 Pre-training
 Run the pre-training pipeline on your own data...
 
+### 🧪 Teacher Checkpoint
+
+Please refer to [this link](https://github.com/RoyHirsch/endossl) for the teacher model checkpoint used in our pre-training pipeline. We also release our own converted PyTorch `.pth` checkpoint, available at [this link](https://drive.google.com/file/d/1bazW3W5Cglzfeeh_pdJALLktfxpateJ6/view?usp=sharing). To use it, specify the path via `--image_teacher_model_ckpt_path checkpoints/teacher.pth`.
+
+### 🧪 Training script
+
+```bash
+sh pretrain_SurgVISTA/pretrain.sh
+```
+The following hyperparameters are used in our training pipeline. You can adjust them via command-line arguments or config files.
+
+| Hyperparameter     | Default Value | Description                                                                 |
+|--------------------|---------------|-----------------------------------------------------------------------------|
+| `OUTPUT_DIR`    | `-`        | Path to save training logs and checkpoints.                                   |
+| `DATA_ROOT`    | `-`        | Root path where preprocessed datasets are stored.                                   |
+| `learning_rate`    | `1.5e-4`        | Initial learning rate for the optimizer.                                   |
+| `image_teacher_loss_weight`     | `0.05`        | Weight to balance the loss between the image teacher task and the main pre-training objective.              |
+| `video_reconstruction_loss_weight`     | `1.0`        | Weight to balance the loss between the image teacher task and the main pre-training objective.              |
+| `optimizer`        | `AdamW`       | Optimizer used for training.                                               |               |
+| `warmup_epochs`     | `40`         | Number of epochs to linearly warm up the learning rate.                     |
+| `batch_size`       | `64`          | Number of samples per training batch.                                      |
+| `num_epochs`       | `201`         | Total number of training epochs.  (+1 for successfully saving 200.pth)                                         |
+| `decoder_depth_image`      | `2`            | Number of transformer decoder layers used for the image branch.            |
+| `decoder_depth_video`      | `4`            | Number of transformer decoder layers used for the video branch.            |
+| `feat_decoder_embed_dim`   | `384`          | Embedding dimension of the decoder for both image features.      |
+| `feat_decoder_num_heads`   | `6`            | Number of attention heads in the feature decoder
+| `pretrained_datasets`       | `'Cholec80 AutoLaparo'`  | Comma-separated list of dataset names used for pre-training. Controls which datasets are loaded and included in training. |
+
 ## 🎯 Finetuning
 Fine-tune the pre-trained model on downstream tasks...
 
@@ -102,10 +129,10 @@ Yang, S., Zhou, F., Mayer, L., Huang, F., Chen, Y., Wang, Y., Maire-Hein, L. & C
       title={Large-scale Self-supervised Video Foundation Model for Intelligent Surgery}, 
       author={Shu Yang and Fengtao Zhou and Leon Mayer and Fuxiang Huang and Yiliang Chen and Yihui Wang and Sunan He and Yuxiang Nie and Xi Wang and Ömer Sümer and Yueming Jin and Huihui Sun and Shuchang Xu and Alex Qinyang Liu and Zheng Li and Jing Qin and Jeremy YuenChun Teoh and Lena Maier-Hein and Hao Chen},
       year={2025},
-      eprint={2407.15362},
+      eprint={2506.02692},
       archivePrefix={arXiv},
       primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2407.15362}, 
+      url={https://arxiv.org/abs/2506.02692}, 
 }
 ```
 

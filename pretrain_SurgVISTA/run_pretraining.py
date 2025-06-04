@@ -7,19 +7,19 @@ import torch.backends.cudnn as cudnn
 import json
 import os
 import sys
-sys.path.append("/home/syangcw/SurgSSL")
+sys.path.append("/home/syangcw/SurgVISTA")
 from functools import partial
 from pathlib import Path
 from collections import OrderedDict
 from timm.models import create_model
 from datasets.transforms.optim_factory import create_optimizer
 from datasets.datasets4pretraining.datasets_pretraining import build_distillation_dataset
-from pretrain_SurgMAEKD.engine_for_pretraining_surgery import train_one_epoch
+from pretrain_SurgVISTA.engine_for_pretraining_surgery import train_one_epoch
 from utils import NativeScalerWithGradNormCount as NativeScaler
 import utils
 from utils import multiple_pretrain_samples_collate
-import pretrain_SurgMAEKD.modeling_surgery_student as modeling_surgery_student
-import pretrain_SurgMAEKD.modeling_surgery_teacher as modeling_surgery_teacher
+import pretrain_SurgVISTA.modeling_surgery_student as modeling_surgery_student
+import pretrain_SurgVISTA.modeling_surgery_teacher as modeling_surgery_teacher
 
 
 def get_args():
