@@ -4,7 +4,7 @@ from functools import partial
 import torch.nn.functional as F
 import numpy as np
 import sys
-sys.path.append("/home/syangcw/SurgSSL/downstream")
+sys.path.append("/home/syangcw/SurgVISTA/downstream")
 import utils
 from timm.models.layers import drop_path, to_2tuple, trunc_normal_
 from timm.models.registry import register_model
@@ -824,7 +824,7 @@ if __name__ == "__main__":
     # print('================================')
     # model = unified_base(
     #     pretrained=True,
-    #     pretrain_path="/home/syangcw/SurgSSL/pretrain_params/videomae_base_k400_1600e.pth",
+    #     pretrain_path="/home/syangcw/SurgVISTA/pretrain_params/videomae_base_k400_1600e.pth",
     #     qkv_bias = False,
     #     qkv_divided_bias = True,
     #     qkv_divided = False
@@ -832,7 +832,7 @@ if __name__ == "__main__":
     # print('================================')
     # model = unified_base(
     #     pretrained=True,
-    #     pretrain_path="/home/syangcw/SurgSSL/pretrain_params/videomae_base_ssv2_2400e.pth",
+    #     pretrain_path="/home/syangcw/SurgVISTA/pretrain_params/videomae_base_ssv2_2400e.pth",
     #     qkv_bias = False,
     #     qkv_divided_bias = True,
     #     qkv_divided = False
@@ -840,7 +840,7 @@ if __name__ == "__main__":
     # print('================================')
     # model = unified_base(
     #     pretrained=True,
-    #     pretrain_path="/home/syangcw/SurgSSL/pretrain_params/internvideo_base_hybrid_800e.pth",
+    #     pretrain_path="/home/syangcw/SurgVISTA/pretrain_params/internvideo_base_hybrid_800e.pth",
     #     qkv_bias = False,
     #     qkv_divided_bias = True,
     #     qkv_divided = False
@@ -848,7 +848,7 @@ if __name__ == "__main__":
     # print('================================')
     # model = unified_base(
     #     pretrained=True,
-    #     pretrain_path="/home/syangcw/SurgSSL/pretrain_params/videomaev2_base_ft_k710_pt_hybrid_giant.pth",
+    #     pretrain_path="/home/syangcw/SurgVISTA/pretrain_params/videomaev2_base_ft_k710_pt_hybrid_giant.pth",
     #     qkv_bias = False,
     #     qkv_divided_bias = True,
     #     qkv_divided = False
@@ -856,7 +856,7 @@ if __name__ == "__main__":
     # print('================================')
     # model = unified_base(
     #     pretrained=True,
-    #     pretrain_path="/home/syangcw/SurgSSL/pretrain_params/umt_base_k710_200e.pth",
+    #     pretrain_path="/home/syangcw/SurgVISTA/pretrain_params/umt_base_k710_200e.pth",
     #     qkv_bias = False,
     #     qkv_divided_bias = True,
     #     qkv_divided = False
@@ -864,7 +864,7 @@ if __name__ == "__main__":
     # print('================================')
     # model = unified_base_st(
     #     pretrained=True,
-    #     pretrain_path="/home/syangcw/SurgSSL/pretrain_params/mvd_base_k400_400e.pth",
+    #     pretrain_path="/home/syangcw/SurgVISTA/pretrain_params/mvd_base_k400_400e.pth",
     #     qkv_bias = False,
     #     qkv_divided_bias = True,
     #     qkv_divided = False
@@ -872,7 +872,7 @@ if __name__ == "__main__":
     # print('================================')
     # model = unified_base_2D(
     #     pretrained=True,
-    #     pretrain_path="/home/syangcw/SurgSSL/pretrain_params/supervised_base_imagenet1k.bin",
+    #     pretrain_path="/home/syangcw/SurgVISTA/pretrain_params/supervised_base_imagenet1k.bin",
     #     qkv_bias = True,
     #     qkv_divided_bias = False,
     #     qkv_divided = False
@@ -880,7 +880,7 @@ if __name__ == "__main__":
     # print('================================')
     # model = unified_base_2D(
     #     pretrained=True,
-    #     pretrain_path="/home/syangcw/SurgSSL/pretrain_params/supervised_base_imagenet21k.bin",
+    #     pretrain_path="/home/syangcw/SurgVISTA/pretrain_params/supervised_base_imagenet21k.bin",
     #     qkv_bias = True,
     #     qkv_divided_bias = False,
     #     qkv_divided = False
@@ -888,7 +888,7 @@ if __name__ == "__main__":
     # print('================================')
     # model = unified_base_2D(
     #     pretrained=True,
-    #     pretrain_path="/home/syangcw/SurgSSL/pretrain_params/mae_base_imagenet1k.bin",
+    #     pretrain_path="/home/syangcw/SurgVISTA/pretrain_params/mae_base_imagenet1k.bin",
     #     qkv_bias = True,
     #     qkv_divided_bias = False,
     #     qkv_divided = False
@@ -896,7 +896,7 @@ if __name__ == "__main__":
     print('================================')
     model = unified_base_2D(
         pretrained=True,
-        pretrain_path="/home/syangcw/SurgSSL/pretrain_params/clip_base_wit400m_in1k.bin",
+        pretrain_path="/home/syangcw/SurgVISTA/pretrain_params/clip_base_wit400m_in1k.bin",
         qkv_bias = True,
         qkv_divided_bias = False,
         qkv_divided = False

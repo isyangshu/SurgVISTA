@@ -9,7 +9,7 @@ from torchvision.models import ResNet50_Weights
 
 
 class SelfSupSurg(nn.Module):
-    def __init__(self, hparams, pretrained_path = "/home/syangcw/SurgSSL/downstream/downstream_TeCNO/surgical_pretrain_params/model_final_checkpoint_dino_surg.torch"):
+    def __init__(self, hparams, pretrained_path = "/home/syangcw/SurgVISTA/downstream/downstream_TeCNO/surgical_pretrain_params/model_final_checkpoint_dino_surg.torch"):
         super(SelfSupSurg, self).__init__()
         self.model = models.resnet50(weights=ResNet50_Weights.IMAGENET1K_V1)
         # replace final layer with number of labels

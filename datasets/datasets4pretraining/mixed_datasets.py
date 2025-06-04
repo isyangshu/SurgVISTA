@@ -5,7 +5,7 @@ import torch
 from PIL import Image
 from torchvision import transforms
 import sys
-sys.path.append("/home/syangcw/SurgSSL")
+sys.path.append("/home/syangcw/SurgVISTA")
 from datasets.transforms.random_erasing import RandomErasing
 import warnings
 from torch.utils.data import Dataset

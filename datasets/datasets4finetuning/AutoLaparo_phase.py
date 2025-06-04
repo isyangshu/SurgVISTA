@@ -6,7 +6,7 @@ import torch
 import decord
 import pickle
 import sys
-sys.path.append("/home/syangcw/SurgSSL")
+sys.path.append("/home/syangcw/SurgVISTA")
 from PIL import Image
 from torchvision import transforms
 from datasets.transforms.random_erasing import RandomErasing
@@ -425,10 +425,10 @@ class PhaseDataset_AutoLaparo(Dataset):
 
         buffer = [transforms.ToPILImage()(frame) for frame in buffer]
         # print(buffer[0].size)
-        # buffer[0].save('/home/syangcw/SurgSSL/a.jpg')
+        # buffer[0].save('/home/syangcw/SurgVISTA/a.jpg')
         buffer = aug_transform(buffer)
         # print(buffer[0].size)
-        # buffer[0].save('/home/syangcw/SurgSSL/b.jpg')
+        # buffer[0].save('/home/syangcw/SurgVISTA/b.jpg')
 
         # for k in range(len(buffer)):
         #     img = cv2.cvtColor(np.asarray(buffer[k]), cv2.COLOR_RGB2BGR)

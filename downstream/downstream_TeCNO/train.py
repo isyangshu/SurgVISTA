@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/syangcw/SurgSSL/downstream/downstream_TeCNO")
+sys.path.append("/home/syangcw/SurgVISTA/downstream/downstream_TeCNO")
 import configargparse
 from pathlib import Path
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping

@@ -561,7 +561,7 @@ def main(args, ds_init):
             args.qkv_divided_bias = True
             args.qkv_divided = False
         if "base" in args.model and args.pretrained_method == 'mvd':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/mvd_base_k400_400e.pth"
+            pretrained_path = "/home/syangcw/SurgVISTA/pretrain_params/mvd_base_k400_400e.pth"
             args.qkv_bias = False
             args.qkv_divided_bias = True
             args.qkv_divided = False
@@ -594,7 +594,7 @@ def main(args, ds_init):
             args.qkv_divided_bias = False
             args.qkv_divided = False
         if "base" in args.model and args.pretrained_method == 'dino':
-            pretrained_path = "/home/syangcw/SurgSSL/pretrain_params/dino_base_imagenet1k.bin"
+            pretrained_path = "/home/syangcw/SurgVISTA/pretrain_params/dino_base_imagenet1k.bin"
             args.qkv_bias = True
             args.qkv_divided_bias = False
             args.qkv_divided = False

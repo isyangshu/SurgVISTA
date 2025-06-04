@@ -115,6 +115,16 @@ The following hyperparameters are used in our training pipeline. You can adjust 
 ## 🎯 Finetuning
 Fine-tune the pre-trained model on downstream tasks...
 
+### Dataset
+- 📂 **Data Preprocessing**: See `datasets/data_processing/finetune_preprosses` scripts that preprocess each dataset and generate .pkl files for fine-tuning. `datasets/data_processing/finetune_preprosses/frame_cutmargin.py` is used for Cholec80 dataset. (**Optional**)
+- 📂 **Dataset Construction**: See `datasets/datasets4pretraining` for dataset building logic.
+
+### Surgical Phase
+
+
+## 💾 Parameters
+
+
 
 ## Acknowledgements
 The project was built on top of amazing repositories such as [VideoMAE](https://github.com/MCG-NJU/VideoMAE), [MVD](https://github.com/ruiwang2021/mvd), [TeCNO](https://github.com/tobiascz/TeCNO), and [Surgformer](https://github.com/isyangshu/Surgformer). We thank the authors and developers for their contribution. 

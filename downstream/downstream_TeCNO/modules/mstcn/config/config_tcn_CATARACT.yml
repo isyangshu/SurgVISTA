@@ -16,6 +16,6 @@ mstcn_stages : 2
 early_stopping_metric : val_acc_video
 save_top_k : 1
 gpus : ['1']
-data_root : /home/syangcw/SurgSSL/downstream/downstream_TeCNO/logs/250109-014616_FeatureExtraction_CATARACTFeatureExtract_EndoSSL_EndoSSL/cataract_pickle_export
+data_root : /home/syangcw/SurgVISTA/downstream/downstream_TeCNO/logs/250109-014616_FeatureExtraction_CATARACTFeatureExtract_EndoSSL_EndoSSL/cataract_pickle_export
 num_sanity_val_steps: 1
 

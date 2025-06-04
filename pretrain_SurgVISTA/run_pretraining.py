@@ -48,7 +48,7 @@ def get_args():
         metavar="MODEL",
         help="Name of teacher model",
     )
-    parser.add_argument("--image_teacher_model_ckpt_path", default="/home/syangcw/SurgSSL/pretrain_params/vit_large_patch16_224_surgery.pth", type=str)
+    parser.add_argument("--image_teacher_model_ckpt_path", default="/home/syangcw/SurgVISTA/pretrain_params/vit_large_patch16_224_surgery.pth", type=str)
     parser.add_argument("--distillation_target_dim", default=768, type=int)
     parser.add_argument(
         "--distill_loss_func",

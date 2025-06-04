@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import sys
-sys.path.append("/home/syangcw/SurgSSL/downstream/downstream_TeCNO")
+sys.path.append("/home/syangcw/SurgVISTA/downstream/downstream_TeCNO")
 from models.GSViT_utils.efficientvit import EfficientViT
 from timm.models.registry import register_model
 
@@ -240,4 +240,4 @@ def replace_batchnorm(net):
             replace_batchnorm(child)
 
 if __name__ == "__main__":
-    model = EfficientViT_M5(num_classes=2048, pretrained="/home/syangcw/SurgSSL/downstream/downstream_TeCNO/surgical_pretrain_params/GSViT.pkl")
+    model = EfficientViT_M5(num_classes=2048, pretrained="/home/syangcw/SurgVISTA/downstream/downstream_TeCNO/surgical_pretrain_params/GSViT.pkl")

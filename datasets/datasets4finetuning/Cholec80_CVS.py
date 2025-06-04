@@ -7,7 +7,7 @@ import torch
 import decord
 import pickle
 import sys
-sys.path.append("/home/syangcw/SurgSSL")
+sys.path.append("/home/syangcw/SurgVISTA")
 from PIL import Image
 from torchvision import transforms
 from datasets.transforms.random_erasing import RandomErasing

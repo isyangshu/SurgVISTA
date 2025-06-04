@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.utils.checkpoint as checkpoint
 from functools import partial
 import sys
-sys.path.append("/home/syangcw/SurgSSL")
+sys.path.append("/home/syangcw/SurgVISTA")
 from pretrain_SurgMAEKD.utils_ import (
     Block,
     _cfg,

@@ -16,7 +16,7 @@ mstcn_stages : 2
 early_stopping_metric : val_acc_video
 save_top_k : 1
 gpus : ['1']
-data_root : /home/syangcw/SurgSSL/downstream/downstream_TeCNO/logs/CATARACT/250109-061955_FeatureExtraction_CATARACTFeatureExtract_GSViT_GSViT/cataract_pickle_export
+data_root : /home/syangcw/SurgVISTA/downstream/downstream_TeCNO/logs/CATARACT/250109-061955_FeatureExtraction_CATARACTFeatureExtract_GSViT_GSViT/cataract_pickle_export
 num_sanity_val_steps: 1
 # Cataract-21 0.0005 9 64 2048 2 12 50
 # Cataract-101 0.0005 9 64 2048 2 12 50

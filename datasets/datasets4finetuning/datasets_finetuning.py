@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append("/home/syangcw/SurgSSL")
+sys.path.append("/home/syangcw/SurgVISTA")
 
 from datasets.transforms import *
 

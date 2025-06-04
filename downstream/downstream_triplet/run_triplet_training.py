@@ -12,8 +12,8 @@ from pathlib import Path
 from collections import OrderedDict
 import torch.nn.functional as F
 import sys
-sys.path.append("/home/syangcw/SurgSSL")
-sys.path.append("/home/syangcw/SurgSSL/downstream")
+sys.path.append("/home/syangcw/SurgVISTA")
+sys.path.append("/home/syangcw/SurgVISTA/downstream")
 
 from timm.models import create_model
 from timm.utils import ModelEma
