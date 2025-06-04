@@ -155,6 +155,46 @@ To customize your training, you only need to modify the following arguments:
 Additionally, you must update the path to the pretrained checkpoint in  
 `downstream/downstream_triplet/run_triplet_training.py`.
 
+### Frame-level Task
+
+The current implementation runs inference on every frame of each video.
+To use your own dataset, simply update the data loading logic and path configuration to match your file structure. Refer to `datasets/datasets4finetuning`.
+
+- Refer to `downstream/downstream_frame/` for the training logic.
+- Use the scripts in `downstream/scripts/frametask/` to run fine-tuning.
+
+To customize your training, you only need to modify the following arguments:
+
+- `--data_path`: Path to your training dataset.
+- `--eval_data_path`: Path to the evaluation dataset.
+- `--nb_classes`: Number of classes for the phase recognition task.
+- `--data_set`: Name of the dataset (must match those registered in `datasets_finetuning.py`).
+- `--output_dir`: Directory to save checkpoints and logs.
+- `--log_dir`: Directory to store tensorboard logs.
+
+Additionally, you must update the path to the pretrained checkpoint in  
+`downstream/downstream_frame/run_frame_training.py`.
+
+### Clip-level Task
+
+The current implementation runs inference on each clip.
+To use your own dataset, simply update the data loading logic and path configuration to match your file structure. Refer to `datasets/datasets4finetuning`.
+
+- Refer to `downstream/downstream_clip/` for the training logic.
+- Use the scripts in `downstream/scripts/cliptask/` to run fine-tuning.
+
+To customize your training, you only need to modify the following arguments:
+
+- `--data_path`: Path to your training dataset.
+- `--eval_data_path`: Path to the evaluation dataset.
+- `--nb_classes`: Number of classes for the phase recognition task.
+- `--data_set`: Name of the dataset (must match those registered in `datasets_finetuning.py`).
+- `--output_dir`: Directory to save checkpoints and logs.
+- `--log_dir`: Directory to store tensorboard logs.
+
+Additionally, you must update the path to the pretrained checkpoint in  
+`downstream/downstream_clip/run_clip_training.py`.
+
 
 ## 💾 Parameters
 

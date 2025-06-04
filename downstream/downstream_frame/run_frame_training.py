@@ -26,7 +26,7 @@ from datasets.transforms.optim_factory import (
 )
 
 from datasets.datasets4finetuning.datasets_finetuning import build_dataset
-from downstream_cvs.engine_for_cvs import (
+from downstream_frame.engine_for_frame import (
     train_one_epoch,
     validation_one_epoch,
     final_phase_test,

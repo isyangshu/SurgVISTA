@@ -6,7 +6,7 @@ for i in "${!param1_list[@]}"; do
     CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch \
     --nproc_per_node=2 \
     --master_port 12332 \
-    downstream_csv/run_csv_training.py \
+    downstream_frame/run_frame_training.py \
     --batch_size 24 \
     --epochs 20 \
     --save_ckpt_freq 10 \
