@@ -25,7 +25,7 @@ for i in "${!param1_list[@]}"; do
     --output_mode key_frame \
     --num_frames 16 \
     --sampling_rate 4 \
-    --data_set CholecT50C \
+    --data_set CholecT50 \
     --data_fps 1fps \
     --output_dir /save/path/to/your/dataset \
     --log_dir /save/path/to/your/dataset \

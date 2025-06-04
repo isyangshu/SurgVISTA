@@ -6,3 +6,4 @@ __pycache__
 datasets/__pycache__
 datasets/phase/__pycache__
 datasets/transforms/__pycache__
+downstream/downstream_TeCNO/

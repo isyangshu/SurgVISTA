@@ -9,7 +9,7 @@ for Intelligent Surgery -->
 
 ## 🔧 Status
 
-- [x] Paper submitted
+- [x] Paper submitted: [Arxiv](https://arxiv.org/pdf/2506.02692)
 - [x] Full code released
 ---
 
@@ -116,10 +116,44 @@ The following hyperparameters are used in our training pipeline. You can adjust 
 Fine-tune the pre-trained model on downstream tasks...
 
 ### Dataset
-- 📂 **Data Preprocessing**: See `datasets/data_processing/finetune_preprosses` scripts that preprocess each dataset and generate .pkl files for fine-tuning. `datasets/data_processing/finetune_preprosses/frame_cutmargin.py` is used for Cholec80 dataset. (**Optional**)
-- 📂 **Dataset Construction**: See `datasets/datasets4pretraining` for dataset building logic.
+- 📂 **Data Preprocessing**: See `datasets/data_processing/finetune_preprosses` scripts that preprocess each dataset and generate .pkl files for fine-tuning. `datasets/data_processing/finetune_preprosses/frame_cutmargin.py` is used for the Cholec80 dataset. (**Optional**)
+- 📂 **Dataset Construction**: See `datasets/datasets4finetuning` for dataset building logic. The file `datasets/datasets4finetuning/datasets_finetuning.py` contains the full registry of all available datasets used for fine-tuning.
 
-### Surgical Phase
+### Pre-trained Method, Pre-trained Data and Model
+
+Please refer to [Fine-tuning README](downstream/README.md)
+
+### Surgical Phase Recognition
+- Refer to `downstream/downstream_phase/` for the training logic.
+- Use the scripts in `downstream/scripts/phase/` to run fine-tuning.
+
+To customize your training, you only need to modify the following arguments:
+
+- `--data_path`: Path to your training dataset.
+- `--eval_data_path`: Path to the evaluation dataset.
+- `--nb_classes`: Number of classes for the phase recognition task.
+- `--data_set`: Name of the dataset (must match those registered in `datasets_finetuning.py`).
+- `--output_dir`: Directory to save checkpoints and logs.
+- `--log_dir`: Directory to store tensorboard logs.
+
+Additionally, you must update the path to the pretrained checkpoint in  
+`downstream/downstream_phase/run_phase_training.py`.
+
+### Surgical Triplet Recognition
+- Refer to `downstream/downstream_triplet/` for the training logic.
+- Use the scripts in `downstream/scripts/triplet/` to run fine-tuning.
+
+To customize your training, you only need to modify the following arguments:
+
+- `--data_path`: Path to your training dataset.
+- `--eval_data_path`: Path to the evaluation dataset.
+- `--nb_classes`: Number of classes for the phase recognition task.
+- `--data_set`: Name of the dataset (must match those registered in `datasets_finetuning.py`).
+- `--output_dir`: Directory to save checkpoints and logs.
+- `--log_dir`: Directory to store tensorboard logs.
+
+Additionally, you must update the path to the pretrained checkpoint in  
+`downstream/downstream_triplet/run_triplet_training.py`.
 
 
 ## 💾 Parameters
