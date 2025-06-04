@@ -283,7 +283,7 @@ def get_args():
 
 def get_args_finetuning():
     parser = argparse.ArgumentParser(
-        "SurgVideoMAE fine-tuning and evaluation script for video phase recognition",
+        "SurgVISTA fine-tuning and evaluation script for video phase recognition",
         add_help=False,
     )
     parser.add_argument("--batch_size", default=12, type=int)

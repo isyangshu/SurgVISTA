@@ -819,7 +819,6 @@ if __name__ == "__main__":
     import utils
     from args import get_args_finetuning
 
-    # args = get_args_finetuning()[0]
     args = get_args_finetuning()[0]
     # print('================================')
     # model = unified_base(

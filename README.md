@@ -158,7 +158,7 @@ Additionally, you must update the path to the pretrained checkpoint in
 
 ## 💾 Parameters
 
-
+Will be released soon! Check out [our Hugging Face page](https://huggingface.co/syangcw/SurgVISTA) for updates.
 
 ## Acknowledgements
 The project was built on top of amazing repositories such as [VideoMAE](https://github.com/MCG-NJU/VideoMAE), [MVD](https://github.com/ruiwang2021/mvd), [TeCNO](https://github.com/tobiascz/TeCNO), and [Surgformer](https://github.com/isyangshu/Surgformer). We thank the authors and developers for their contribution. 

@@ -1,7 +1,7 @@
 import argparse
 
 def get_args():
-    parser = argparse.ArgumentParser('SurgVideoMAE pre-training script', add_help=False)
+    parser = argparse.ArgumentParser('SurgVISTA pre-training script', add_help=False)
     parser.add_argument('--batch_size', default=64, type=int)
     parser.add_argument('--epochs', default=801, type=int)
     parser.add_argument('--save_ckpt_freq', default=20, type=int)
@@ -367,7 +367,6 @@ def get_args_finetuning():
     parser.add_argument(
         "--data_path",
         default="/Users/yangshu/Downloads/Cataract101",
-        # default="/Users/yangshu/Documents/SurgVideoMAE/data/cholec80",
         type=str,
         help="dataset path",
     )
